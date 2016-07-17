@@ -5,6 +5,7 @@
  */
 package com.ren.security;
 
+import com.ren.api.MappingApi;
 import com.ren.security.filter.AuthenticationFilter;
 import com.ren.security.provider.TokenAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
-    private final RequestMatcher POST_LOGIN_MATCHER = new AntPathRequestMatcher("/authenticate", "POST");
+    private final RequestMatcher POST_LOGIN_MATCHER = new AntPathRequestMatcher(MappingApi.AUTH, "POST");
 
     @Autowired
     @Override
@@ -65,6 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**");
+        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**");
     }
 }

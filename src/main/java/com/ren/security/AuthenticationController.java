@@ -5,6 +5,7 @@
  */
 package com.ren.security;
 
+import com.ren.api.MappingApi;
 import com.ren.security.token.AuthToken;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author rentius
  */
 @RestController
-@RequestMapping("/authenticate")
+@RequestMapping(MappingApi.AUTH)
 public class AuthenticationController {
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public AuthToken authenticate() {
         return new AuthToken("1234", "Rentius");
     }
-    
+
 }
