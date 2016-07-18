@@ -8,10 +8,12 @@ package com.ren.security.provider;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
 import io.jsonwebtoken.JwtException;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +37,9 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
             throw new JwtException("JWT token is not valid");
         }        
         
-        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken(parsedUser.getId(), parsedUser.getUsername());
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ADMIN");
+        
+        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken(parsedUser.getId(), parsedUser.getUsername(), Arrays.asList(authority));
         preAuthenticatedAuthenticationToken.setAuthenticated(true);
         return preAuthenticatedAuthenticationToken;
     }
