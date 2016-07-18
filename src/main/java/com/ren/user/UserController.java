@@ -21,6 +21,10 @@ public class UserController {
     
     @RequestMapping(method = RequestMethod.GET)
     public List<User> get() {
-        return Arrays.asList(new User("Rentius", "Engelbrecht"));
+        User user = new User();
+        user.setUsername("Rentius");
+        user.setRole("ADMIN");
+        
+        return Arrays.asList(user);
     }
 }

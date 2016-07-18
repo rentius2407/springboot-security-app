@@ -5,6 +5,7 @@
  */
 package com.ren.security.filter;
 
+import io.jsonwebtoken.JwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -37,9 +38,14 @@ public class AuthenticationFilter extends GenericFilterBean {
 
         HttpServletRequest httpRequest = asHttp(request);
         if (!ignoreRequests.matches(httpRequest)) {
-            String tokenValue = httpRequest.getHeader("X-Token");
-
-            Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(tokenValue, null));
+            
+            String header = httpRequest.getHeader("Authorization");
+            if (header == null || !header.startsWith("Bearer ")) {
+                throw new JwtException("No JWT token found in request headers");
+            }          
+            
+            String authToken = header.substring(7);
+            Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(authToken, null));
             SecurityContextHolder.getContext().setAuthentication(authenticate);
         }
 

@@ -5,8 +5,11 @@
  */
 package com.ren.security.provider;
 
+import com.ren.security.token.util.JwtUtil;
+import com.ren.user.User;
+import io.jsonwebtoken.JwtException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -18,16 +21,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TokenAuthenticationProvider implements AuthenticationProvider {
+    
+    @Autowired
+    private JwtUtil jwtUtil;    
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
         String tokenValue = (String) authentication.getPrincipal();
-        if (tokenValue == null || tokenValue.isEmpty()) {
-            throw new BadCredentialsException("Invalid token");
-        }
+        User parsedUser = jwtUtil.parseToken(tokenValue);
+
+        if (parsedUser == null) {
+            throw new JwtException("JWT token is not valid");
+        }        
         
-        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken("Rentius", "Password");
+        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken(parsedUser.getId(), parsedUser.getUsername());
         preAuthenticatedAuthenticationToken.setAuthenticated(true);
         return preAuthenticatedAuthenticationToken;
     }

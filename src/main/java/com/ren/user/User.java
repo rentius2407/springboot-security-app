@@ -11,31 +11,35 @@ package com.ren.user;
  */
 public class User {
 
-    private String name;
-    private String surname;
-
-    public User(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
-    }
+    private Long id;
+    private String username;
+    private String role;
 
     public User() {
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

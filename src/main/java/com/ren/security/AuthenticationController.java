@@ -6,7 +6,9 @@
 package com.ren.security;
 
 import com.ren.api.MappingApi;
-import com.ren.security.token.AuthToken;
+import com.ren.security.token.util.JwtUtil;
+import com.ren.user.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,9 +21,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(MappingApi.AUTH)
 public class AuthenticationController {
 
+    @Autowired
+    JwtUtil jwtUtil;
+
     @RequestMapping(method = RequestMethod.POST)
-    public AuthToken authenticate() {
-        return new AuthToken("1234", "Rentius");
+    public String authenticate() {
+
+        User user = new User();
+        user.setUsername("Rentius");
+        user.setRole("ADMIN");
+        user.setId(20L);
+
+        return jwtUtil.generateToken(user);
     }
 
 }
