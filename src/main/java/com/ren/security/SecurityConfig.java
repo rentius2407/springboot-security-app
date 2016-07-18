@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
     private final RequestMatcher POST_LOGIN_MATCHER = new AntPathRequestMatcher(MappingApi.AUTH, "POST");
+    private final String HTML_EXTENSION = "/**.html";
 
     @Autowired
     @Override
@@ -66,6 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**");
+        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION);
     }
 }
