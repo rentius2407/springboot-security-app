@@ -12,6 +12,11 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 }
+
+/**
+ * If one wants to deploy to Apache Tomcat 8, comment out the above code and remove comments below
+ */
+
 //@SpringBootApplication
 //public class Application extends SpringBootServletInitializer {
 //

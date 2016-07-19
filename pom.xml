@@ -24,6 +24,8 @@
     </properties>
 
     <dependencies>
+        
+        <!-- If one wants to deploy to Apache Tomcat 8, remove comments below -->
 <!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
