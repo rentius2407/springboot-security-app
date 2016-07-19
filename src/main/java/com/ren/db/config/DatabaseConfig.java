@@ -6,6 +6,7 @@
 package com.ren.db.config;
 
 import javax.sql.DataSource;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,29 +19,38 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DatabaseConfig {
 
-	@Autowired
-	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
-		LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+    @Autowired
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
 
-		entityManagerFactory.setDataSource(dataSource);
+        entityManagerFactory.setDataSource(dataSource);
 
-		// Classpath scanning of @Component, @Service, etc annotated class
-		entityManagerFactory.setPackagesToScan(new String[] { "com.ren" });
+        // Classpath scanning of @Component, @Service, etc annotated class
+        entityManagerFactory.setPackagesToScan(new String[]{"com.ren"});
 
-		// Vendor adapter
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
+        // Vendor adapter
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 
-		return entityManagerFactory;
-	}
+        return entityManagerFactory;
+    }
 
-	@Autowired
-	@Bean
-	public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
-		return transactionManager;
-	}
+    @Autowired
+    @Bean
+    public JpaTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
+        return transactionManager;
+    }
+
+    @Autowired
+    @Bean
+    public SpringLiquibase liquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:changelog/liquibase-changeLog.xml");
+        liquibase.setDataSource(dataSource);
+        return liquibase;
+    }
 
 }
