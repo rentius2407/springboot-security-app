@@ -14,5 +14,8 @@ public class MappingApi {
     public static final String AUTH = "/authenticate";
     public static final String CSS = "/css";
     public static final String JS = "/js";
+    public static final String REGISTER = "/register";
+    public static final String USER = "/user";
+    public static final String PROPERTY = "/property";
 
 }

@@ -5,6 +5,7 @@
  */
 package com.ren.property;
 
+import com.ren.api.MappingApi;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/property")
+@RequestMapping(MappingApi.PROPERTY)
 public class PropertyController {
 
     @Autowired

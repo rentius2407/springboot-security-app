@@ -9,6 +9,7 @@ import com.ren.api.MappingApi;
 import com.ren.security.filter.AuthenticationFilter;
 import com.ren.security.provider.TokenAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,6 +18,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -32,8 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
-    private final RequestMatcher POST_LOGIN_MATCHER = new AntPathRequestMatcher(MappingApi.AUTH, "POST");
     private final String HTML_EXTENSION = "/**.html";
+    
+    private final RequestMatcher[] IGNORE_URLS = {
+        new AntPathRequestMatcher(MappingApi.AUTH, "POST"),
+        new AntPathRequestMatcher(MappingApi.USER + MappingApi.REGISTER, "POST")
+    };
 
     @Autowired
     @Override
@@ -56,17 +63,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
                 .authorizeRequests()
-                .requestMatchers(POST_LOGIN_MATCHER).permitAll()
+                .requestMatchers(IGNORE_URLS).permitAll()
                 .anyRequest().authenticated();
 
     }
 
     private AuthenticationFilter authenticationFilter() throws Exception {
-        return new AuthenticationFilter(authenticationManager(), POST_LOGIN_MATCHER);
+        return new AuthenticationFilter(authenticationManager(), IGNORE_URLS);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION);
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

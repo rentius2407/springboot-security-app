@@ -12,6 +12,9 @@ package com.ren.user;
 public class User {
 
     private Long id;
+    private String firstName;
+    private String lastName;
+    private String password;
     private String username;
     private String role;
 

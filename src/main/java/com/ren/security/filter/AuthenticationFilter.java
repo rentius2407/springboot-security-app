@@ -26,9 +26,9 @@ import org.springframework.web.filter.GenericFilterBean;
 public class AuthenticationFilter extends GenericFilterBean {
 
     private final AuthenticationManager authenticationManager;
-    private final RequestMatcher ignoreRequests;
+    private final RequestMatcher[] ignoreRequests;
 
-    public AuthenticationFilter(AuthenticationManager authenticationManager, RequestMatcher ignoreRequests) {
+    public AuthenticationFilter(AuthenticationManager authenticationManager, RequestMatcher[] ignoreRequests) {
         this.authenticationManager = authenticationManager;
         this.ignoreRequests = ignoreRequests;
     }
@@ -37,19 +37,29 @@ public class AuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = asHttp(request);
-        if (!ignoreRequests.matches(httpRequest)) {
-            
+        if (authenticateUrl(httpRequest)) {
+
             String header = httpRequest.getHeader("Authorization");
             if (header == null || !header.startsWith("Bearer ")) {
                 throw new JwtException("No JWT token found in request headers");
-            }          
-            
+            }
+
             String authToken = header.substring(7);
             Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(authToken, null));
             SecurityContextHolder.getContext().setAuthentication(authenticate);
         }
 
         chain.doFilter(request, response);
+    }
+
+    private boolean authenticateUrl(HttpServletRequest httpRequest) {
+        for (RequestMatcher ignoreRequest : ignoreRequests) {
+            if (ignoreRequest.matches(httpRequest)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private HttpServletRequest asHttp(ServletRequest request) {
