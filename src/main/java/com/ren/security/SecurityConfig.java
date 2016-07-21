@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
-    private final String HTML_EXTENSION = "/**.html";
+    private final String HTML_EXTENSION = "/**/**.html";
+    private final String FAVICON = "/favicon.ico";
     
     private final RequestMatcher[] IGNORE_URLS = {
         new AntPathRequestMatcher(MappingApi.AUTH, "POST"),
@@ -74,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION);
+        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION, FAVICON);
     }
     
     @Bean

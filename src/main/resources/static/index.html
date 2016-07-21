@@ -14,45 +14,31 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
         <script src="js/jquery-3.1.0.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
+        <script src="js/request/request.js"></script>
         <script>
+
+            var login = function () {
+
+                var usernameVal = $('#username').val();
+                var passwordVal = $('#password').val();
+
+                var loginCredentials = {
+                    username: usernameVal,
+                    password: passwordVal
+                };
+
+                httpRequest.post("/authenticate", loginCredentials);
+            };
+
             $(function () {
                 $("#datepicker").datepicker();
-
-                $("#loginButton").click(function () {
-
-                    var usernameVal = $('#username').val();
-                    var passwordVal = $('#password').val();
-
-                    var loginCredentials = {
-                        username: usernameVal,
-                        password: passwordVal
-                    };
-
-                    $.ajax({
-                        url: "/authenticate",
-                        type: "post",
-                        data: JSON.stringify(loginCredentials),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: 'json'
-                    }).done(function (data) {
-                        console.log('done');
-                        console.log(data);
-                    }).fail(function () {
-                        console.log('failed method')
-                    }).always(function () {
-                        console.log('always method');
-                    });
-                });
+                $("#mainView").load('/user/login.html');
             });
         </script>
     </head>
     <body>
         <div>TODO write content</div>
         <p>Date: <input type="text" id="datepicker"></p>
-        <div id="login">
-            <input id="username" name="username" type="text" value="" placeholder="Username"/>
-            <input id="password" name="password" type="password" value="" placeholder="Password"/>
-            <input id="loginButton" name="loginButton" type="button" value="Login"/>
-        </div>
+        <div id="mainView"></div>
     </body>
 </html>
