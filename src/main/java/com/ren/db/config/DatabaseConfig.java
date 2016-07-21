@@ -5,9 +5,12 @@
  */
 package com.ren.db.config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,7 +20,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-public class DatabaseConfig {
+@ConfigurationProperties(prefix = "spring.datasource")
+public class DatabaseConfig extends HikariConfig {
 
     @Autowired
     @Bean
@@ -34,6 +38,12 @@ public class DatabaseConfig {
         entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
 
         return entityManagerFactory;
+    }
+
+    @Bean
+    public DataSource dataSource() {
+        HikariDataSource datasource = new HikariDataSource(this);
+        return datasource;
     }
 
     @Autowired
