@@ -8,6 +8,7 @@ package com.ren.security;
 import com.ren.api.MappingApi;
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.InvalidCredentialsException;
+import com.ren.security.token.AuthToken;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AuthenticationController {
     JwtUtil jwtUtil;
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> authenticate(@RequestBody AuthenticationCredentials credentials) {
+    public ResponseEntity<AuthToken> authenticate(@RequestBody AuthenticationCredentials credentials) {
 
         if (credentials == null || credentials.invalid()) {
             throw new InvalidCredentialsException();
@@ -40,10 +41,10 @@ public class AuthenticationController {
         user.setUsername(credentials.getUsername());
         user.setRole("ADMIN");
         user.setId(20L);
-        
+
         String encryptedToken = jwtUtil.generateToken(user);
 
-        return new ResponseEntity<>(encryptedToken, HttpStatus.OK);
+        return new ResponseEntity<>(new AuthToken(encryptedToken), HttpStatus.OK);
     }
 
 }

@@ -12,11 +12,9 @@ package com.ren.security.token;
 public class AuthToken {
 
     private String number;
-    private String username;
 
-    public AuthToken(String number, String username) {
+    public AuthToken(String number) {
         this.number = number;
-        this.username = username;
     }
 
     public AuthToken() {
@@ -29,13 +27,4 @@ public class AuthToken {
     public void setNumber(String number) {
         this.number = number;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 }

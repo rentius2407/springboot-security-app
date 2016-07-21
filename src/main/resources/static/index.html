@@ -17,11 +17,42 @@ and open the template in the editor.
         <script>
             $(function () {
                 $("#datepicker").datepicker();
+
+                $("#loginButton").click(function () {
+
+                    var usernameVal = $('#username').val();
+                    var passwordVal = $('#password').val();
+
+                    var loginCredentials = {
+                        username: usernameVal,
+                        password: passwordVal
+                    };
+
+                    $.ajax({
+                        url: "/authenticate",
+                        type: "post",
+                        data: JSON.stringify(loginCredentials),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json'
+                    }).done(function (data) {
+                        console.log('done');
+                        console.log(data);
+                    }).fail(function () {
+                        console.log('failed method')
+                    }).always(function () {
+                        console.log('always method');
+                    });
+                });
             });
         </script>
     </head>
     <body>
         <div>TODO write content</div>
         <p>Date: <input type="text" id="datepicker"></p>
+        <div id="login">
+            <input id="username" name="username" type="text" value="" placeholder="Username"/>
+            <input id="password" name="password" type="password" value="" placeholder="Password"/>
+            <input id="loginButton" name="loginButton" type="button" value="Login"/>
+        </div>
     </body>
 </html>
