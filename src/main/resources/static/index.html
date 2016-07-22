@@ -37,19 +37,30 @@ and open the template in the editor.
             };
 
             $(function () {
-                $("#datepicker").datepicker();
 
-                $(window).on('hashchange', function () {
-                    var hash = location.hash;
+                function loadPartial(hash) {
+                    console.log('loaded hash = ' + hash);
                     if (hash === '#login') {
                         $("#mainView").load('/user/login.html');
 
                     } else if (hash === '#user') {
                         $("#mainView").load('/user/user.html');
+                    } else {
+                        $("#mainView").load('/welcome.html');
                     }
+                }
+
+                $(window).on('hashchange', function () {
+                    var hash = location.hash;
+                    loadPartial(hash);
                 });
 
-                window.location.hash = '#login';
+                var loadedHash = location.hash;
+                if (loadedHash && loadedHash.trim().length > 0) {
+                    loadPartial(loadedHash);
+                } else {
+                    loadPartial('#welcome');
+                }
             });
         </script>
     </head>
