@@ -27,17 +27,33 @@ and open the template in the editor.
                     password: passwordVal
                 };
 
-                httpRequest.post("/authenticate", loginCredentials);
+                httpRequest.post("/authenticate", loginCredentials)
+                        .done(function (data) {
+                            window.location.hash = '#user';
+                        })
+                        .fail(function () {
+                            console.log('failed method');
+                        });
             };
 
             $(function () {
                 $("#datepicker").datepicker();
-                $("#mainView").load('/user/login.html');
+
+                $(window).on('hashchange', function () {
+                    var hash = location.hash;
+                    if (hash === '#login') {
+                        $("#mainView").load('/user/login.html');
+
+                    } else if (hash === '#user') {
+                        $("#mainView").load('/user/user.html');
+                    }
+                });
+
+                window.location.hash = '#login';
             });
         </script>
     </head>
     <body>
-        <div>TODO write content</div>
         <p>Date: <input type="text" id="datepicker"></p>
         <div id="mainView"></div>
     </body>

@@ -7,18 +7,11 @@ var httpRequest = (function () {
     };
 
     return  {
-        post: function (url, data, successPage) {
+        post: function (url, data) {
             request.url = url;
             request.type = "post";
             request.data = JSON.stringify(data);
-
-            $.ajax(request).done(function (data) {
-                console.log('done');
-                console.log(data);
-                window.location.href = "user/user.html";
-            }).fail(function () {
-                console.log('failed method');
-            });
+            return $.ajax(request);
         }
     };
 })();
