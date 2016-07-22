@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenAuthenticationProvider tokenAuthenticationProvider;
     private final String HTML_EXTENSION = "/**/**.html";
+    private final String JS_EXTENSION = "/**/**.js";
     private final String FAVICON = "/favicon.ico";
     
     private final RequestMatcher[] IGNORE_URLS = {
@@ -75,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION, FAVICON);
+        web.ignoring().antMatchers(MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION, FAVICON, JS_EXTENSION);
     }
     
     @Bean
