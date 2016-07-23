@@ -15,8 +15,21 @@ and open the template in the editor.
         <script src="js/jquery-3.1.0.min.js"></script>
         <script src="js/jquery-ui.min.js"></script>
         <script src="js/request/request.js"></script>
-        <script src="user/user.js"></script>
         <script>
+
+            jQuery.cachedScript = function (url, options) {
+
+                // Allow user to set any option except for dataType, cache, and url
+                options = $.extend(options || {}, {
+                    dataType: "script",
+                    cache: true,
+                    url: url
+                });
+
+                // Use $.ajax() since it is more flexible than $.getScript
+                // Return the jqXHR object so we can chain callbacks
+                return jQuery.ajax(options);
+            };
 
             var login = function () {
 
@@ -40,14 +53,22 @@ and open the template in the editor.
             $(function () {
 
                 function loadPartial(hash) {
-                    console.log('loaded hash = ' + hash);
+                    $("#mainView").hide();
                     if (hash === '#login') {
-                        $("#mainView").load('/user/login.html');
+                        $("#mainView").load('/user/login.html', function (response, status, xhr) {
+                            $("#mainView").show();
+                        });
 
                     } else if (hash === '#user') {
-                        $("#mainView").load('/user/user.html');
+                        $("#mainView").load('/user/user.html', function (response, status, xhr) {
+                            $.cachedScript("/user/user.js").done(function (script, textStatus) {
+                                $("#mainView").show();
+                            });
+                        });
                     } else {
-                        $("#mainView").load('/welcome.html');
+                        $("#mainView").load('/welcome.html', function (response, status, xhr) {
+                            $("#mainView").show();
+                        });
                     }
                 }
 
