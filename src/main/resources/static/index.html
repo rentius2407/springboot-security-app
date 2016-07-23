@@ -9,6 +9,8 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/jquery-ui.min.css">
         <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
         <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
@@ -31,10 +33,7 @@ and open the template in the editor.
                 return jQuery.ajax(options);
             };
 
-            var login = function () {
-
-                var usernameVal = $('#username').val();
-                var passwordVal = $('#password').val();
+            function login(usernameVal, passwordVal) {
 
                 var loginCredentials = {
                     username: usernameVal,
@@ -48,7 +47,7 @@ and open the template in the editor.
                         .fail(function () {
                             console.log('failed method');
                         });
-            };
+            }
 
             $(function () {
 
@@ -57,6 +56,14 @@ and open the template in the editor.
                     if (hash === '#login') {
                         $("#mainView").load('/user/login.html', function (response, status, xhr) {
                             $("#mainView").show();
+
+                            $('#loginButton').click(function () {
+                                var usernameVal = $('#username').val();
+                                var passwordVal = $('#password').val();
+
+                                login(usernameVal, passwordVal);
+
+                            });
                         });
 
                     } else if (hash === '#user') {
@@ -87,6 +94,8 @@ and open the template in the editor.
         </script>
     </head>
     <body>
-        <div id="mainView"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4" id="mainView"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4"></div>
     </body>
 </html>
