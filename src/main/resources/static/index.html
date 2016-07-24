@@ -79,6 +79,10 @@ and open the template in the editor.
                         });
                     } else {
                         $("#mainView").load('/welcome.html', function (response, status, xhr) {
+
+                            $('#nutritionImage').click(function () {
+                                window.location.hash = '#nutrition';
+                            });
                             $("#mainView").show();
                         });
                     }
