@@ -67,6 +67,10 @@ and open the template in the editor.
                             });
                         });
 
+                    } else if (hash === '#nutrition') {
+                        $("#mainView").load('/nutrition/nutrition.html', function (response, status, xhr) {
+                            $("#mainView").show();
+                        });
                     } else if (hash === '#user') {
                         $("#mainView").load('/user/user.html', function (response, status, xhr) {
                             $.cachedScript("/user/user.js").done(function (script, textStatus) {
