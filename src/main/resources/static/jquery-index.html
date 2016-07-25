@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/app.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.structure.min.css">
+        <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+        <script src="js/jquery-3.1.0.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/request/request.js"></script>
+        <script>
+
+            jQuery.cachedScript = function (url, options) {
+
+                // Allow user to set any option except for dataType, cache, and url
+                options = $.extend(options || {}, {
+                    dataType: "script",
+                    cache: true,
+                    url: url
+                });
+
+                // Use $.ajax() since it is more flexible than $.getScript
+                // Return the jqXHR object so we can chain callbacks
+                return jQuery.ajax(options);
+            };
+
+            function login(usernameVal, passwordVal) {
+
+                var loginCredentials = {
+                    username: usernameVal,
+                    password: passwordVal
+                };
+
+                httpRequest.post("/authenticate", loginCredentials)
+                        .done(function (data) {
+                            window.location.hash = '#user';
+                        })
+                        .fail(function () {
+                            console.log('failed method');
+                        });
+            }
+
+            $(function () {
+
+                function loadPartial(hash) {
+                    $("#mainView").hide();
+                    if (hash === '#login') {
+                        $("#mainView").load('/user/login.html', function (response, status, xhr) {
+                            $("#mainView").show();
+
+                            $('#loginButton').click(function () {
+                                var usernameVal = $('#username').val();
+                                var passwordVal = $('#password').val();
+
+                                login(usernameVal, passwordVal);
+
+                            });
+                        });
+
+                    } else if (hash === '#nutrition') {
+                        $("#mainView").load('/nutrition/nutrition.html', function (response, status, xhr) {
+                            $("#mainView").show();
+                        });
+                    } else if (hash === '#user') {
+                        $("#mainView").load('/user/user.html', function (response, status, xhr) {
+                            $.cachedScript("/user/user.js").done(function (script, textStatus) {
+                                $("#mainView").show();
+                            });
+                        });
+                    } else {
+                        $("#mainView").load('/welcome.html', function (response, status, xhr) {
+
+                            $('#nutritionImage').click(function () {
+                                window.location.hash = '#nutrition';
+                            });
+                            $("#mainView").show();
+                        });
+                    }
+                }
+
+                $(window).on('hashchange', function () {
+                    var hash = location.hash;
+                    loadPartial(hash);
+                });
+
+                var loadedHash = location.hash;
+                if (loadedHash && loadedHash.trim().length > 0) {
+                    loadPartial(loadedHash);
+                } else {
+                    loadPartial('#welcome');
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="col-lg-4 col-md-4 col-sm-12"></div>
+        <div class="container-fluid col-lg-4 col-md-4 col-sm-12">
+            <div id="mainView"></div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12"></div>
+    </body>
+</html>
