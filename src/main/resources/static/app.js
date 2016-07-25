@@ -6,6 +6,12 @@ angular.module('app', ['ui.router', 'ui.bootstrap', 'app.home'])
                         url: '',
                         abstract: true
                     });
+
+            $urlRouterProvider.otherwise(function ($injector, $location) {
+                var $state = $injector.get('$state');
+                $state.go('app.home');
+
+            });
         })
         .controller('AppController', function () {
         });
