@@ -31,7 +31,7 @@
             sequenceName="property_seq"
             startValue="1"/>
     </changeSet> 
-    <changeSet author="rentius" id="create property authority">
+    <changeSet author="rentius" id="create table property">
         <createTable tableName="property">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
