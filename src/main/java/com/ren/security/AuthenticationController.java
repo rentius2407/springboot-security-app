@@ -6,6 +6,7 @@
 package com.ren.security;
 
 import com.ren.api.MappingApi;
+import com.ren.property.PropertyService;
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.InvalidCredentialsException;
 import com.ren.security.token.AuthToken;
@@ -29,6 +30,8 @@ public class AuthenticationController {
 
     @Autowired
     JwtUtil jwtUtil;
+    @Autowired
+    PropertyService propertyService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<AuthToken> authenticate(@RequestBody AuthenticationCredentials credentials) {
@@ -43,6 +46,8 @@ public class AuthenticationController {
         user.setId(20L);
 
         String encryptedToken = jwtUtil.generateToken(user);
+        
+        propertyService.getAll();
 
         return new ResponseEntity<>(new AuthToken(encryptedToken), HttpStatus.OK);
     }
