@@ -25,4 +25,10 @@
                          defaultValueSequenceNext="authority_seq"
                          tableName="authority"/>                
     </changeSet>    
+    <changeSet author="rentius" id="createSequence-property">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="property_seq"
+            startValue="1"/>
+    </changeSet>     
 </databaseChangeLog>
