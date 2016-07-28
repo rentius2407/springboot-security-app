@@ -18,5 +18,6 @@ public class MappingApi {
     public static final String REGISTER = "/register";
     public static final String USER = "/user";
     public static final String PROPERTY = "/property";
+    public static final String CP = "/app";
 
 }
