@@ -30,5 +30,19 @@
             incrementBy="1"
             sequenceName="property_seq"
             startValue="1"/>
-    </changeSet>     
+    </changeSet> 
+    <changeSet author="rentius" id="create property authority">
+        <createTable tableName="property">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="property_seq"
+                         tableName="property"/>                
+    </changeSet>         
 </databaseChangeLog>
