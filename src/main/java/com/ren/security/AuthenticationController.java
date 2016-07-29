@@ -10,6 +10,8 @@ import com.ren.property.PropertyService;
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.InvalidCredentialsException;
 import com.ren.security.token.AuthToken;
+import com.ren.security.token.claim.ClaimDetail;
+import com.ren.security.token.claim.ExpireDate;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,6 @@ public class AuthenticationController {
 
     @Autowired
     JwtUtil jwtUtil;
-    @Autowired
-    PropertyService propertyService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<AuthToken> authenticate(@RequestBody AuthenticationCredentials credentials) {
@@ -45,9 +45,11 @@ public class AuthenticationController {
         user.setRole("ADMIN");
         user.setId(20L);
 
-        String encryptedToken = jwtUtil.generateToken(user);
-        
-        propertyService.getAll();
+        ClaimDetail claimDetail = new ClaimDetail(
+                user,
+                new ExpireDate().now().plusDays(1)
+        );
+        String encryptedToken = jwtUtil.generateToken(claimDetail);
 
         return new ResponseEntity<>(new AuthToken(encryptedToken), HttpStatus.OK);
     }

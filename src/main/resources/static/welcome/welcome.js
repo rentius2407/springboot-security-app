@@ -1,6 +1,6 @@
 angular.module('app.home', [])
         .config(function ($stateProvider) {
-            
+
             $stateProvider
                     .state('app.home', {
                         url: '/home',
@@ -17,7 +17,14 @@ angular.module('app.home', [])
                         }
                     });
         })
-        .controller('WelcomeController', function () {
+        .controller('WelcomeController', function (MenuService) {
+
+            MenuService.all('123').then(function (result) {
+                console.log('Working in menu');
+            }, function (error) {
+                //go back to login and display error message
+                console.log(error);
+            });
 
             var welcomeCtrl = this;
             welcomeCtrl.message = 'Welcome Rentius';

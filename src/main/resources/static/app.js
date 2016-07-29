@@ -4,6 +4,7 @@ angular.module('app',
             'ui.bootstrap',
             'app.user.login',
             'app.home',
+            'app.user.menu.service',
             'ngCookies'
         ])
         .factory('TokenService', function ($cookies) {

@@ -5,6 +5,8 @@
  */
 package com.ren.security.token.util;
 
+import com.ren.security.token.claim.ClaimDetail;
+import com.ren.security.token.claim.ExpireDate;
 import com.ren.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -24,25 +26,33 @@ public class JwtUtil {
     private String secret;
 
     /**
-     * Tries to parse specified String as a JWT token. If successful, returns User object with username, id and role prefilled (extracted from token).
-     * If unsuccessful (token is invalid or not containing all required user properties), simply returns null.
-     * 
+     * Tries to parse specified String as a JWT token. If successful, returns
+     * User object with username, id and role prefilled (extracted from token).
+     * If unsuccessful (token is invalid or not containing all required user
+     * properties), simply returns null.
+     *
      * @param token the JWT token to parse
-     * @return the User object extracted from specified token or null if a token is invalid.
+     * @return the User object extracted from specified token or null if a token
+     * is invalid.
      */
-    public User parseToken(String token) {
+    public ClaimDetail parseToken(String token) {
         try {
             Claims body = Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token)
                     .getBody();
 
-            User u = new User();
-            u.setUsername(body.getSubject());
-            u.setId(Long.parseLong((String) body.get("userId")));
-            u.setRole((String) body.get("role"));
+            User user = new User();
+            user.setUsername(body.getSubject());
+            user.setId(Long.parseLong((String) body.get("userId")));
+            user.setRole((String) body.get("role"));
 
-            return u;
+            Long expireTime = (Long) body.get("expire");
+
+            return new ClaimDetail(
+                    user,
+                    new ExpireDate().time(expireTime)
+            );
 
         } catch (JwtException | ClassCastException e) {
             return null;
@@ -50,16 +60,18 @@ public class JwtUtil {
     }
 
     /**
-     * Generates a JWT token containing username as subject, and userId and role as additional claims. These properties are taken from the specified
-     * User object. Tokens validity is infinite.
-     * 
-     * @param u the user for which the token will be generated
+     * Generates a JWT token containing username as subject, and userId and role
+     * as additional claims. These properties are taken from the specified User
+     * object. Tokens validity is infinite.
+     *
+     * @param claimDetail the ClaimDetail for which the token will be generated
      * @return the JWT token
      */
-    public String generateToken(User u) {
-        Claims claims = Jwts.claims().setSubject(u.getUsername());
-        claims.put("userId", u.getId() + "");
-        claims.put("role", u.getRole());
+    public String generateToken(ClaimDetail claimDetail) {
+        Claims claims = Jwts.claims().setSubject(claimDetail.getUsername());
+        claims.put("userId", claimDetail.getUserId() + "");
+        claims.put("role", claimDetail.getRole());
+        claims.put("expire", claimDetail.getExpireTime());
 
         return Jwts.builder()
                 .setClaims(claims)
