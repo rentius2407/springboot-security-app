@@ -96,9 +96,23 @@
                          tableName="app_user"/>   
         
         <addForeignKeyConstraint baseTableName="app_user"
-                                         baseColumnNames="role_id"
-                                         constraintName="app_user_role_id"
-                                         referencedTableName="app_role"
-                                         referencedColumnNames="id"/>             
-    </changeSet>         
+                                 baseColumnNames="role_id"
+                                 constraintName="app_user_role_id"
+                                 referencedTableName="app_role"
+                                 referencedColumnNames="id"/>             
+    </changeSet>   
+    <changeSet author="rentius" id="insert app_role ADMIN">
+        <insert tableName="app_role">
+            <column name="name" value="ADMIN"/>
+        </insert>               
+    </changeSet>           
+    <changeSet author="rentius" id="insert app_user administrator">
+        <insert tableName="app_user">
+            <column name="firstname" value="Admin"/>
+            <column name="lastname" value="Admin"/>
+            <column name="email" value="admin@jqfitness.co.uk"/>
+            <column name="password" value="$2a$10$jT4b87gcQVgjv5iEfz5B2.83EmuvTatTNAYz1KMCzuqa9UcHiQxmi"/>
+            <column name="role_id" valueComputed="(select id from app_role where name = 'ADMIN')"/>
+        </insert>               
+    </changeSet>           
 </databaseChangeLog>

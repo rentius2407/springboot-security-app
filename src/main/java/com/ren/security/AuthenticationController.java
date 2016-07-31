@@ -6,7 +6,6 @@
 package com.ren.security;
 
 import com.ren.api.MappingApi;
-import com.ren.property.PropertyService;
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.InvalidCredentialsException;
 import com.ren.security.token.AuthToken;
@@ -14,7 +13,7 @@ import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.claim.ExpireDate;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
-import com.ren.user.role.Role;
+import com.ren.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,19 +32,17 @@ public class AuthenticationController {
 
     @Autowired
     JwtUtil jwtUtil;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<AuthToken> authenticate(@RequestBody AuthenticationCredentials credentials) {
 
         if (credentials == null || credentials.invalid()) {
-            throw new InvalidCredentialsException();
+            throw new InvalidCredentialsException("Invalid credentials");
         }
-
-        User user = new User();
-        user.setEmail(credentials.getUsername());
-        user.setRole(new Role("ADMIN"));
-        user.setId(20L);
-
+        
+        User user = userService.authenticate(credentials);
         ClaimDetail claimDetail = new ClaimDetail(
                 user,
                 new ExpireDate().now().plusDays(1)

@@ -7,6 +7,8 @@ package com.ren.security.provider;
 
 import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.util.JwtUtil;
+import com.ren.user.User;
+import com.ren.user.UserService;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,9 +24,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TokenAuthenticationProvider implements AuthenticationProvider {
-    
+
     @Autowired
-    private JwtUtil jwtUtil;    
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserService userService;
+    private final static String TOKEN_INVALID = "Invalid Token";
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -33,12 +38,17 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
         ClaimDetail claimDetail = jwtUtil.parseToken(tokenValue);
 
         if (claimDetail == null || claimDetail.tokenExpired()) {
-            throw new com.ren.security.authentication.AuthenticationException("JWT token is not valid");
-        }        
-        
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ADMIN");
-        
-        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken(claimDetail.getUserId(), claimDetail.getUsername(), Arrays.asList(authority));
+            throw new com.ren.security.authentication.AuthenticationException(TOKEN_INVALID);
+        }
+
+        User user = userService.findByUsername(claimDetail.getUsername());
+        if (user.invalidId(claimDetail.getUserId())) {
+            throw new com.ren.security.authentication.AuthenticationException(TOKEN_INVALID);
+        }
+
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRoleName());
+
+        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken = new PreAuthenticatedAuthenticationToken(user.getId(), user.getEmail(), Arrays.asList(authority));
         preAuthenticatedAuthenticationToken.setAuthenticated(true);
         return preAuthenticatedAuthenticationToken;
     }

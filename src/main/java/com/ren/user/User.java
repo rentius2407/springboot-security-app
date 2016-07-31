@@ -92,4 +92,14 @@ public class User implements Serializable {
         return getRole().getName();
     }
 
+    public boolean invalidId(Long userId) {
+        return !getId().equals(userId);
+    }
+
+    public static class FIND_BY_USERNAME {
+
+        public final static String PARAM_EMAIL = "email";
+        public final static String QUERY = "select u from User u where u.email = :" + PARAM_EMAIL;
+    }
+
 }
