@@ -5,19 +5,23 @@
  */
 package com.ren.security.token;
 
+import com.ren.user.UserDetail;
+
 /**
  *
  * @author rentius
  */
 public class AuthToken {
 
+    private UserDetail userDetail;
     private String number;
 
-    public AuthToken(String number) {
-        this.number = number;
+    public AuthToken() {
     }
 
-    public AuthToken() {
+    public AuthToken(String number, UserDetail userDetail) {
+        this.number = number;
+        this.userDetail = userDetail;
     }
 
     public String getNumber() {
@@ -26,5 +30,13 @@ public class AuthToken {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public UserDetail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 }

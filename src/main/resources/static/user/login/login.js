@@ -17,6 +17,8 @@ angular.module('app.user.login', ['app.user.login.service'])
         })
         .controller('LoginController', function (LoginService, TokenService, $state) {
 
+            TokenService.clear();
+
             var loginCtrl = this;
             loginCtrl.login = function () {
                 var credentials = {username: loginCtrl.username, password: loginCtrl.password};

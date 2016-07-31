@@ -21,6 +21,9 @@ angular.module('app',
                 inValid: function () {
                     var token = $cookies.get(TOKEN_CONST);
                     return (!token || token.trim().length === 0);
+                },
+                clear: function () {
+                    $cookies.remove(TOKEN_CONST);
                 }
             };
         })

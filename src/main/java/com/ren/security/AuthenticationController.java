@@ -13,6 +13,7 @@ import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.claim.ExpireDate;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
+import com.ren.user.UserDetail;
 import com.ren.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,7 +50,8 @@ public class AuthenticationController {
         );
         String encryptedToken = jwtUtil.generateToken(claimDetail);
 
-        return new ResponseEntity<>(new AuthToken(encryptedToken), HttpStatus.OK);
+        UserDetail userDetail = UserDetail.from(user);
+        return new ResponseEntity<>(new AuthToken(encryptedToken, userDetail), HttpStatus.OK);
     }
 
 }
