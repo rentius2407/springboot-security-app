@@ -34,7 +34,7 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
         ClaimDetail claimDetail = jwtUtil.parseToken(tokenValue);
 
         if (claimDetail == null || claimDetail.tokenExpired()) {
-            throw new JwtException("JWT token is not valid");
+            throw new com.ren.security.authentication.AuthenticationException("JWT token is not valid");
         }        
         
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ADMIN");

@@ -41,7 +41,7 @@ public class ClaimDetail {
     public void setExpireDate(ExpireDate expireDate) {
         this.expireDate = expireDate;
     }
-    
+
     public long getExpireTime() {
         return this.expireDate.getMillis();
     }
@@ -59,6 +59,10 @@ public class ClaimDetail {
     }
 
     public boolean tokenExpired() {
+        if (getExpireDate() == null) {
+            return true;
+        }
+
         return getExpireDate().after(DateTime.now());
     }
 

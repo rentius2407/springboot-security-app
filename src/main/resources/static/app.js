@@ -71,7 +71,7 @@ function interceptor($q, $injector, TokenService) {
         responseError: function (rejection) {
             console.log('Interceptor Response Error');
             if (rejection.status === 401) {
-                $injector.get('$state').transitionTo('app.user.login', null, {reload: true});
+                $injector.get('$state').transitionTo('app.login', null, {reload: true});
             }
             return $q.reject(rejection);
         }

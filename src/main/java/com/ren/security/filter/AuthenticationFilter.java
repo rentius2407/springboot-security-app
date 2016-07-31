@@ -5,13 +5,15 @@
  */
 package com.ren.security.filter;
 
-import io.jsonwebtoken.JwtException;
+import com.ren.security.authentication.AuthenticationException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,12 +43,20 @@ public class AuthenticationFilter extends GenericFilterBean {
 
             String header = httpRequest.getHeader("Authorization");
             if (header == null || !header.startsWith("Bearer ")) {
-                throw new JwtException("No JWT token found in request headers");
+                HttpServletResponse httpResponse = asHttp(response);
+                httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "No JWT token found in request headers");
+                return;
             }
 
             String authToken = header.substring(7);
-            Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(authToken, null));
-            SecurityContextHolder.getContext().setAuthentication(authenticate);
+            try {
+                Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(authToken, null));
+                SecurityContextHolder.getContext().setAuthentication(authenticate);
+            } catch (AuthenticationException e) {
+                HttpServletResponse httpResponse = asHttp(response);
+                httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+                return;
+            }
         }
 
         chain.doFilter(request, response);
@@ -66,4 +76,7 @@ public class AuthenticationFilter extends GenericFilterBean {
         return (HttpServletRequest) request;
     }
 
+    private HttpServletResponse asHttp(ServletResponse response) {
+        return (HttpServletResponse) response;
+    }
 }
