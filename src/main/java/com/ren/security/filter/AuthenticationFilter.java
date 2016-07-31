@@ -43,20 +43,20 @@ public class AuthenticationFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = asHttp(request);
         if (authenticateUrl(httpRequest)) {
 
-            String header = httpRequest.getHeader("Authorization");
-            if (header == null || !header.startsWith("Bearer ")) {
-                HttpServletResponse httpResponse = asHttp(response);
-                httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(), "No JWT token found in request headers");
-                return;
-            }
-
-            String authToken = header.substring(7);
             try {
+                String header = httpRequest.getHeader("Authorization");
+                if (header == null || !header.startsWith("Bearer ")) {
+                    throw new AuthenticationException("No JWT token found in request headers");
+                }
+
+                String authToken = header.substring(7);
                 Authentication authenticate = authenticationManager.authenticate(new PreAuthenticatedAuthenticationToken(authToken, null));
                 SecurityContextHolder.getContext().setAuthentication(authenticate);
             } catch (AuthenticationException e) {
-                HttpServletResponse httpResponse = asHttp(response);
+
                 ResponseStatus annotation = AnnotationUtils.getAnnotation(e.getClass(), ResponseStatus.class);
+
+                HttpServletResponse httpResponse = asHttp(response);
                 httpResponse.sendError(annotation.value().value(), annotation.reason());
                 return;
             }
