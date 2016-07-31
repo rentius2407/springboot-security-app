@@ -7,7 +7,6 @@ package com.ren.user;
 
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.AuthenticationException;
-import com.ren.security.authentication.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,7 +37,7 @@ public class UserService {
         System.out.println("matches = " + matches);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public User authenticate(AuthenticationCredentials credentials) {
         User user = userRepository.findByUsername(credentials.getUsername());
         if (user == null) {
