@@ -27,7 +27,7 @@ and open the template in the editor.
     </head>
     <body ng-controller="AppController as appCtrl">
         <div class="container-fluid  col-lg-4 col-md-4 col-sm-12">
-            <span uib-dropdown>
+            <span uib-dropdown ng-show="appCtrl.showMenu">
                 <a href id="simple-dropdown" uib-dropdown-toggle>
                     <img class="image-menu-size" border="0" alt="" src="../icons/menu.png">
                 </a>

@@ -49,31 +49,31 @@ angular.module('app',
         })
         .run(function ($rootScope, $state, TokenService) {
             $rootScope.$on("$stateChangeStart", function (event, next, current) {
-                console.log('State changed to = ' + next.name + ' secure = ' + next.data.secure);
                 if (next.data.secure && TokenService.inValid()) {
-                    console.log('Redirect');
                     $state.go('app.login');
                     event.preventDefault();
                 }
             });
         })
-        .controller('AppController', function () {
+        .controller('AppController', function ($scope) {
+            var appCtrl = this;
+            appCtrl.showMenu = false;
+            $scope.$on('showMenuEvent', function (event, args) {
+                appCtrl.showMenu = args.show;
+            });
         });
 
 function interceptor($q, $injector, TokenService) {
 
     return {
         request: function (config) {
-            console.log('Interceptor Request');
             config.headers['authorization'] = 'Bearer ' + TokenService.get();
             return config;
         },
         response: function (result) {
-            console.log('Interceptor Response');
             return result;
         },
         responseError: function (rejection) {
-            console.log('Interceptor Response Error');
             if (rejection.status === 401) {
                 $injector.get('$state').transitionTo('app.login', null, {reload: true});
             }

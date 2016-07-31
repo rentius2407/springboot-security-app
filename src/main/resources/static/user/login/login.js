@@ -15,10 +15,13 @@ angular.module('app.user.login', ['app.user.login.service'])
                         }
                     });
         })
-        .controller('LoginController', function (LoginService, TokenService, $state, UserDetailService) {
+        .controller('LoginController', function (LoginService, TokenService, $state, UserDetailService, $rootScope) {
 
             TokenService.clear();
             UserDetailService.clear();
+            $rootScope.$broadcast("showMenuEvent", {
+                show: false
+            });
 
             var loginCtrl = this;
             loginCtrl.login = function () {
@@ -27,6 +30,9 @@ angular.module('app.user.login', ['app.user.login.service'])
                     var tokenNumber = result.data.number;
                     TokenService.put(tokenNumber);
                     UserDetailService.add(angular.toJson(result.data.userDetail));
+                    $rootScope.$broadcast("showMenuEvent", {
+                        show: true
+                    });
                     $state.go('app.home');
                 }, function (error) {
                     //go back to login and display error message
