@@ -14,6 +14,7 @@ import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.claim.ExpireDate;
 import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
+import com.ren.user.role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class AuthenticationController {
         }
 
         User user = new User();
-        user.setUsername(credentials.getUsername());
-        user.setRole("ADMIN");
+        user.setEmail(credentials.getUsername());
+        user.setRole(new Role("ADMIN"));
         user.setId(20L);
 
         ClaimDetail claimDetail = new ClaimDetail(

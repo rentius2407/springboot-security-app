@@ -8,6 +8,7 @@ package com.ren.security.token.util;
 import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.claim.ExpireDate;
 import com.ren.user.User;
+import com.ren.user.role.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -43,16 +44,17 @@ public class JwtUtil {
                     .getBody();
 
             User user = new User();
-            user.setUsername(body.getSubject());
+            user.setEmail(body.getSubject());
             user.setId(Long.parseLong((String) body.get("userId")));
-            user.setRole((String) body.get("role"));
+
+            String roleName = (String) body.get("role");
+            user.setRole(new Role(roleName));
 
             Long expireTime = (Long) body.get("expire");
 
             return new ClaimDetail(
                     user,
-                    null
-//                    new ExpireDate().time(expireTime)
+                    new ExpireDate().time(expireTime)
             );
 
         } catch (JwtException | ClassCastException e) {

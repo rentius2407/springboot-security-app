@@ -7,7 +7,6 @@ package com.ren.security.provider;
 
 import com.ren.security.token.claim.ClaimDetail;
 import com.ren.security.token.util.JwtUtil;
-import io.jsonwebtoken.JwtException;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;

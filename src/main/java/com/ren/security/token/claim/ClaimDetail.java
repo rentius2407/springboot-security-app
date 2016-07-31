@@ -47,7 +47,7 @@ public class ClaimDetail {
     }
 
     public String getUsername() {
-        return getUser().getUsername();
+        return getUser().getEmail();
     }
 
     public Long getUserId() {
@@ -55,9 +55,9 @@ public class ClaimDetail {
     }
 
     public String getRole() {
-        return getUser().getRole();
+        return getUser().getRoleName();
     }
-
+    
     public boolean tokenExpired() {
         if (getExpireDate() == null) {
             return true;

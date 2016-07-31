@@ -6,6 +6,7 @@
 package com.ren.user;
 
 import com.ren.api.MappingApi;
+import com.ren.user.role.Role;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public List<User> get() {
         User user = new User();
-        user.setUsername("Rentius");
-        user.setRole("ADMIN");
+        user.setEmail("Rentius@gmail.com");
+        user.setRole(new Role("ADMIN"));
 
         return Arrays.asList(user);
     }
