@@ -1,12 +1,21 @@
-var userCtrl = (function () {
-    $("#userSubmit").click(function () {
-        $('#nameLabel').text('Rentius');
-    });
+angular.module('app.user', [])
+        .controller('UserController', function () {
+        })
+        .factory('UserDetailService', function ($window) {
 
-    return {
-        sayHello: function () {
-            $('#nameLabel').text('Rentius');
-        }
-    };
-})();
+            var KEY_CONST = 'userdetail';
+
+            return {
+                clear: function () {
+                    $window.localStorage.removeItem(KEY_CONST);
+                },
+                add: function (userDetail) {
+                    $window.localStorage.setItem(KEY_CONST, angular.toJson(userDetail));
+                },
+                get: function () {
+                    var data = $window.localStorage.getItem(KEY_CONST);
+                    return angular.fromJson(data);
+                }
+            };
+        });
 

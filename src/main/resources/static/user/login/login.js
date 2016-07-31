@@ -15,9 +15,10 @@ angular.module('app.user.login', ['app.user.login.service'])
                         }
                     });
         })
-        .controller('LoginController', function (LoginService, TokenService, $state) {
+        .controller('LoginController', function (LoginService, TokenService, $state, UserDetailService) {
 
             TokenService.clear();
+            UserDetailService.clear();
 
             var loginCtrl = this;
             loginCtrl.login = function () {
@@ -25,6 +26,7 @@ angular.module('app.user.login', ['app.user.login.service'])
                 LoginService.login(credentials).then(function (result) {
                     var tokenNumber = result.data.number;
                     TokenService.put(tokenNumber);
+                    UserDetailService.add(angular.toJson(result.data.userDetail));
                     $state.go('app.home');
                 }, function (error) {
                     //go back to login and display error message
