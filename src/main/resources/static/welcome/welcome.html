@@ -2,14 +2,16 @@
 <div class="panel panel-success">
     <div class="panel-heading">
         <h2>{{welcomeCtrl.message}}</h2>
-        <div class="btn-group" uib-dropdown is-open="status.isopen">
-            <button id="single-button" type="button" class="btn" uib-dropdown-toggle ng-disabled="disabled">
-                Menu <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li role="menuitem"><a href="#">Register User</a></li>
+        <span uib-dropdown>
+            <a href id="simple-dropdown" uib-dropdown-toggle>
+                <img class="image-menu-size" border="0" alt="" src="../icons/menu.png">
+            </a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li>
+                    <a href>Register User</a>
+                </li>
             </ul>
-        </div>
+        </span>
     </div>
     <div class="panel-body">
         <div class="col-lg-12 col-md-12 col-sm-12" ng-repeat="menu in welcomeCtrl.menus">
