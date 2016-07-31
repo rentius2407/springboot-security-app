@@ -51,7 +51,8 @@ public class JwtUtil {
 
             return new ClaimDetail(
                     user,
-                    new ExpireDate().time(expireTime)
+                    null
+//                    new ExpireDate().time(expireTime)
             );
 
         } catch (JwtException | ClassCastException e) {

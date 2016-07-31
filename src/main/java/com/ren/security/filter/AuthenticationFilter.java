@@ -13,12 +13,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.filter.GenericFilterBean;
 
 /**
@@ -54,7 +56,8 @@ public class AuthenticationFilter extends GenericFilterBean {
                 SecurityContextHolder.getContext().setAuthentication(authenticate);
             } catch (AuthenticationException e) {
                 HttpServletResponse httpResponse = asHttp(response);
-                httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(), e.getMessage());
+                ResponseStatus annotation = AnnotationUtils.getAnnotation(e.getClass(), ResponseStatus.class);
+                httpResponse.sendError(annotation.value().value(), annotation.reason());
                 return;
             }
         }
