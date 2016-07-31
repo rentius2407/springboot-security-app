@@ -25,7 +25,21 @@ and open the template in the editor.
         <script src="app.js"></script>
     </head>
     <body ng-controller="AppController as appCtrl">
-        <div class="col-lg-4 col-md-4 col-sm-12"></div>
+        <div class="container-fluid  col-lg-4 col-md-4 col-sm-12">
+            <span uib-dropdown>
+                <a href id="simple-dropdown" uib-dropdown-toggle>
+                    <img class="image-menu-size" border="0" alt="" src="../icons/menu.png">
+                </a>
+                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                    <li>
+                        <a href>Register User</a>
+                    </li>
+                    <li>
+                        <a ui-sref="app.login">Log out</a>
+                    </li>
+                </ul>
+            </span>             
+        </div>
         <div class="container-fluid col-lg-4 col-md-4 col-sm-12">
             <div ui-view="main"></div>
         </div>
