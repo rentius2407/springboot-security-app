@@ -55,9 +55,9 @@ angular.module('app',
                 }
             });
         })
-        .controller('AppController', function ($scope) {
+        .controller('AppController', function ($scope, UserDetailService) {
             var appCtrl = this;
-            appCtrl.showMenu = false;
+            appCtrl.showMenu = UserDetailService.validUser();
             $scope.$on('showMenuEvent', function (event, args) {
                 appCtrl.showMenu = args.show;
             });

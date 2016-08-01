@@ -26,20 +26,35 @@ and open the template in the editor.
         <script src="app.js"></script>
     </head>
     <body ng-controller="AppController as appCtrl">
-        <div class="container-fluid  col-lg-4 col-md-4 col-sm-12">
-            <span uib-dropdown ng-show="appCtrl.showMenu">
-                <a href id="simple-dropdown" uib-dropdown-toggle>
-                    <img class="image-menu-size" border="0" alt="" src="../icons/menu.png">
-                </a>
-                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                    <li>
-                        <a href>Register User</a>
+        <div id="wrapper">
+            <nav class="navbar navbar-default navbar-static-top" role="navigation" ng-show="appCtrl.showMenu">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">JQFitness</a>
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+                    <li uib-dropdown on-toggle="toggled(open)">
+                        <a href="#" uib-dropdown-toggle>
+                            <i class="glyphicon glyphicon-user"></i> <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="glyphicon glyphicon-wrench"></i> User Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a ui-sref="app.login"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
+                        </ul>
                     </li>
-                    <li>
-                        <a ui-sref="app.login">Log out</a>
-                    </li>
+                    <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+                        <ul class="nav navbar-nav">
+                            <li><a ui-sref="app.home"> Register User</a></li>
+                        </ul>
+                    </div>
                 </ul>
-            </span>             
+            </nav>
         </div>
         <div class="container-fluid col-lg-4 col-md-4 col-sm-12">
             <div ui-view="main"></div>

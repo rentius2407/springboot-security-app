@@ -15,6 +15,10 @@ angular.module('app.user', [])
                 get: function () {
                     var data = $window.localStorage.getItem(KEY_CONST);
                     return angular.fromJson(data);
+                }, 
+                validUser: function () {
+                    var data = $window.localStorage.getItem(KEY_CONST);
+                    return data && data.length > 0;
                 }
             };
         });
