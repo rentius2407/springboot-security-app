@@ -20,7 +20,6 @@ angular.module('app.home', [])
         .controller('WelcomeController', function (MenuService) {
 
             MenuService.all('123').then(function (result) {
-                console.log('Working in menu');
             }, function (error) {
                 //go back to login and display error message
                 console.log(error);

@@ -58,6 +58,18 @@ angular.module('app',
         })
         .controller('AppController', function ($scope, UserDetailService) {
             var appCtrl = this;
+            appCtrl.navCollapsed = true;
+            appCtrl.collapse = function () {
+                appCtrl.navCollapsed = !appCtrl.navCollapsed;
+            };
+
+            appCtrl.menus = [{state: 'app.home', description: 'Home'}];
+
+            if (UserDetailService.hasRole('ADMIN')) {
+                appCtrl.menus.push({state: 'app.home', description: 'Register User'});
+                appCtrl.menus.push({state: 'app.home', description: 'Create Group'});
+            }
+
             appCtrl.showMenu = UserDetailService.validUser();
             $scope.$on('showMenuEvent', function (event, args) {
                 appCtrl.showMenu = args.show;

@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuController {
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public ResponseEntity<String> all(@PathVariable("userId") Long userId) {
-        return new ResponseEntity<>("{ id: 1234}", HttpStatus.OK);
+    public ResponseEntity<Menu> all(@PathVariable("userId") Long userId) {
+
+        Menu menu = new Menu();
+        menu.setId(1L);
+
+        return new ResponseEntity<>(menu, HttpStatus.OK);
     }
 
 }
