@@ -22,14 +22,7 @@ angular.module('app.nutrition.category', [])
             nutritionCatCtrl.header = catName;
             nutritionCatCtrl.addOption = false;
 
-            nutritionCatCtrl.options = [
-                {id: 1, name: 'Option1',
-                    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.'
-                },
-                {id: 2, name: 'Option2',
-                    content: 'This is the new content that is being displayed'
-                }
-            ];
+            nutritionCatCtrl.options = [];
 
             nutritionCatCtrl.addCategoryOption = function () {
                 if (nutritionCatCtrl.addOption) { //adding new at this moment

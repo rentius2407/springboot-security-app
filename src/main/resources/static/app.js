@@ -67,15 +67,22 @@ angular.module('app',
             appCtrl.menus = [{state: 'app.home', description: 'Home'}];
 
             if (UserDetailService.hasRole('ADMIN')) {
-                appCtrl.menus.push({state: 'app.home', description: 'Register User'});
-                appCtrl.menus.push({state: 'app.home', description: 'Create Group'});
+                addmenus(appCtrl);
             }
 
             appCtrl.showMenu = UserDetailService.validUser();
             $scope.$on('showMenuEvent', function (event, args) {
                 appCtrl.showMenu = args.show;
+                if (appCtrl.showMenu) {
+                    addmenus(appCtrl);
+                }
             });
         });
+
+function addmenus(appCtrl) {
+    appCtrl.menus.push({state: 'app.home', description: 'Register User'});
+    appCtrl.menus.push({state: 'app.home', description: 'Create Group'});
+}
 
 function interceptor($q, $injector, TokenService) {
 
