@@ -8,7 +8,7 @@ angular.module('app.user.login', ['app.user.login.service'])
                             secure: false
                         },
                         views: {
-                            'main@': {
+                            'login@': {
                                 controller: 'LoginController as loginCtrl',
                                 templateUrl: 'user/login/login.html'
                             }
