@@ -2,6 +2,7 @@ angular.module('app',
         [
             'ui.router',
             'ui.bootstrap',
+            'app.nutrition.category',
             'app.nutrition',
             'app.user',
             'app.user.login',

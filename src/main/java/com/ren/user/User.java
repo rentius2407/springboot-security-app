@@ -99,7 +99,7 @@ public class User implements Serializable {
     public static class FIND_BY_USERNAME {
 
         public final static String PARAM_EMAIL = "email";
-        public final static String QUERY = "select u from User u where u.email = :" + PARAM_EMAIL;
+        public final static String QUERY = "select u from User u where upper(u.email) = :" + PARAM_EMAIL;
     }
 
 }

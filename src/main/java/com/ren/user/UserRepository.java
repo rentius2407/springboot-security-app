@@ -26,7 +26,7 @@ public class UserRepository {
 
     public User findByUsername(String username) {
         TypedQuery<User> query = entityManager.createQuery(User.FIND_BY_USERNAME.QUERY, User.class);
-        query.setParameter(User.FIND_BY_USERNAME.PARAM_EMAIL, username);
+        query.setParameter(User.FIND_BY_USERNAME.PARAM_EMAIL, username.toUpperCase());
 
         return new SingleResultNull<>(query).get();
     }
