@@ -1,11 +1,26 @@
 <div class="page-break"></div>
-<div class="form-group text-center h2">Log in to your account</div>
-<div class="form-group">
-    <input class="form-control" ng-model="loginCtrl.username" id="username" name="username" type="text" value="" placeholder="Username" required/>
+<div class="row">
+    <h2 class="heading-divider">
+        <i class="glyphicon glyphicon-user">
+        </i>
+         Access account
+    </h2>
 </div>
-<div class="form-group">
+<div class="page-break"></div>
+<div class="form-group input-group">
+    <span class="input-group-addon">
+        <i class="glyphicon glyphicon-envelope">
+        </i>
+    </span>
+    <input class="form-control" ng-model="loginCtrl.username" id="username" name="username" type="text" placeholder="Username"/>
+</div>
+<div class="form-group input-group">
+    <span class="input-group-addon">
+        <i class="glyphicon glyphicon-lock">
+        </i>
+    </span>
     <input class="form-control" ng-model="loginCtrl.password" id="password" name="password" type="password" value="" placeholder="Password" required/>
 </div>
 <div class="form-group">
-    <input class="form-control" id="loginButton" name="loginButton" type="button" value="Log In" ng-click="loginCtrl.login(loginCtrl)"/>
+    <button type="button" class="btn btn-primary btn-block" ng-click="loginCtrl.login(loginCtrl)">Log In</button>
 </div>

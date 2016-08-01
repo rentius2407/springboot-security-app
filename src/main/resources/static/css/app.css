@@ -13,10 +13,16 @@
 }
 
 .image-size {
-   width: 140px;
-   height: 140px;
+    width: 140px;
+    height: 140px;
 }
 .image-menu-size {
-   width: 40px;
-   height: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.heading-divider {
+    border-bottom: 1px solid #c5c5c5;
+    margin-left: 5px;
+    margin-right: 5px;
 }
