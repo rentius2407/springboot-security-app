@@ -18,6 +18,7 @@ and open the template in the editor.
         <script src="js/angular/angular-cookies.min.js"></script>
         <script src="js/angular/angular-ui-router.min.js"></script>
         <script src="js/angular/ui-bootstrap-tpls-2.0.0.min.js"></script>
+        <script src="nutrition/nutrition.js"></script>
         <script src="user/user.js"></script>
         <script src="user/menu/menuService.js"></script>
         <script src="user/login/loginService.js"></script>
@@ -43,15 +44,13 @@ and open the template in the editor.
                     </button>
                     <a class="navbar-brand" href="index.html">JQFitness</a>
                 </div>
-                <!-- /.navbar-header -->
-
                 <ul class="nav navbar-top-links navbar-right">
                     <li uib-dropdown on-toggle="toggled(open)">
                         <a href="#" uib-dropdown-toggle>
                             <i class="glyphicon glyphicon-user"></i> <i class="caret"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ui-sref=""><i class="glyphicon glyphicon-wrench"></i> User Profile</a></li>
+                            <li><a ui-sref="app.login"><i class="glyphicon glyphicon-wrench"></i> User Profile</a></li>
                             <li class="divider"></li>
                             <li><a ui-sref="app.login"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
                         </ul>
@@ -62,118 +61,25 @@ and open the template in the editor.
                     <div class="collapse sidebar-nav navbar-collapse" ng-class="!navCollapsed && 'in'">
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="index.html"> Register User</a>
+                                <a href="index.html" ng-click="navCollapsed = !navCollapsed"> Register User</a>
                             </li>
                         </ul>
                         <ul class="nav" id="side-menu">
                             <li>
-                                <a href="index.html"> Create Group</a>
+                                <a href="index.html" ng-click="navCollapsed = !navCollapsed"> Create Group</a>
+                            </li>
+                        </ul>
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a ui-sref="app.home" ng-click="navCollapsed = !navCollapsed"> Home</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <div id="page-wrapper" ui-view="main"></div>
-
-            <!--<div id="page-wrapper">-->
-<!--                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Dashboard</h1>
-                    </div>
-                     /.col-lg-12 
-                </div>
-                 /.row 
-                <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-comments fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>New Comments!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-shopping-cart fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
-                                        <div>New Orders!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-support fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>-->
-            <!--</div>-->
+            <div id="page-wrapper">
+                <div ui-view="main"></div>
+            </div>
         </div>
     </body>
 </html>
