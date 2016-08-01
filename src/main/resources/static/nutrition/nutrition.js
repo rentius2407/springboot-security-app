@@ -17,10 +17,14 @@ angular.module('app.nutrition', [])
                         }
                     });
         })
-        .controller('NutritionController', function () {
+        .controller('NutritionController', function (UserDetailService) {
             
             var nutritionCtrl = this;
-            nutritionCtrl.detailsLabel = '';
+    
+            nutritionCtrl.detailsLabel = 'View Details';
+            if(UserDetailService.hasRole('ADMIN')) {
+                nutritionCtrl.detailsLabel = 'Add Details';
+            }
             
         })
         .factory('NutritionService', function ($window) {
