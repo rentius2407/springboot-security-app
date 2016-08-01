@@ -12,6 +12,16 @@
     padding-left: 5px;
 }
 
+.padding-ten-left {
+    padding-left: 10px;
+}
+
+.textarea {
+    width: 300px;
+    height: 400px;
+    resize: none;
+}
+
 .image-size {
     width: 140px;
     height: 140px;
@@ -27,7 +37,7 @@
     margin-right: 5px;
 }
 
-.heanding2-override {
+.heading2-override {
     margin-top: 0px;
     padding-top: 12px;
 }

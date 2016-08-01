@@ -7,3 +7,37 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
         <h1 class="page-header">{{nutritionCatCtrl.header}}</h1>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-2">
+        <button type="button" class="btn btn-primary" ng-click="nutritionCatCtrl.addCategoryOption()">Add Option</button>
+    </div>
+</div>
+<div class="page-break"></div>
+<div ng-show="nutritionCatCtrl.addOption">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Option Name</label>
+                <input class="form-control" ng-model="nutritionCatCtrl.optionName">
+            </div>
+            <div class="form-group">
+                <label>Recipe</label>
+                <textarea rows="15" cols="7" class="form-control textarea" ng-model="nutritionCatCtrl.optionContent"></textarea>
+            </div>   
+        </div>
+    </div>
+</div>
+<div ng-hide="nutritionCatCtrl.addOption">
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12" ng-repeat="option in nutritionCatCtrl.options">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    {{option.name}}
+                </div>
+                <div class="panel-body">
+                    <p>{{option.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
