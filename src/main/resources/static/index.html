@@ -62,7 +62,7 @@ and open the template in the editor.
                     <div class="collapse sidebar-nav navbar-collapse" ng-class="!appCtrl.navCollapsed && 'in'">
                         <ul class="nav" id="side-menu" ng-repeat="menuItem in appCtrl.menus">
                             <li>
-                                <a href="#/ + {{menuItem.state}}" ng-click="appCtrl.collapse()"> {{menuItem.description}}</a>
+                                <a ui-sref="{{menuItem.state}}" ng-click="appCtrl.collapse()"> {{menuItem.description}}</a>
                             </li>
                         </ul>
                     </div>
