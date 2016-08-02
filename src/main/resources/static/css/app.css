@@ -43,7 +43,7 @@
 }
 
 body {
-    background-color: #f8f8f8;
+    background-color: #92dce0;
 }
 
 #wrapper {
@@ -53,7 +53,7 @@ body {
 #page-wrapper {
     padding: 0 15px;
     min-height: 568px;
-    background-color: #fff;
+    background-color: #92dce0;
 }
 
 @media(min-width:768px) {
@@ -391,3 +391,6 @@ table.dataTable thead .sorting:after {
     color: #df8a13;
 }
 
+.page-header-app {
+    color: white;
+}
