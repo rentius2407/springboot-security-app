@@ -21,5 +21,6 @@ public class MappingApi {
     public static final String PROPERTY = "/property";
     public static final String CP = "/app";
     public static final String MENU = "/menu";
+    public static final String CATEGORY = "/category";
 
 }

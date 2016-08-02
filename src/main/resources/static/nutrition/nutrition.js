@@ -18,14 +18,14 @@ angular.module('app.nutrition', [])
                     });
         })
         .controller('NutritionController', function (UserDetailService) {
-            
+
             var nutritionCtrl = this;
-    
-            nutritionCtrl.detailsLabel = 'View Details';
+
+                nutritionCtrl.detailsLabel = 'View Details';
             if(UserDetailService.hasRole('ADMIN')) {
-                nutritionCtrl.detailsLabel = 'Add Details';
+                    nutritionCtrl.detailsLabel = 'Add Details';
             }
-            
+
         })
         .factory('NutritionService', function ($window) {
         });

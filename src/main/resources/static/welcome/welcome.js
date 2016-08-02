@@ -17,18 +17,28 @@ angular.module('app.home', [])
                         }
                     });
         })
-        .controller('WelcomeController', function (MenuService) {
+        .controller('WelcomeController', function (MenuService, CategoryService) {
+
+            var welcomeCtrl = this;
+            welcomeCtrl.message = 'Welcome Rentius';
 
             MenuService.all('123').then(function (result) {
+                return CategoryService.rootCategory();
+            }).then(function (result) {
+                console.log(result.data);
+                welcomeCtrl.menus = [
+                    {id: 'nutritionImage', url: '../icons/nutrition.png'}, {id: 'exerciseImage', url: '../icons/exercise.png'}
+                ];
             }, function (error) {
                 //go back to login and display error message
                 console.log(error);
             });
 
-            var welcomeCtrl = this;
-            welcomeCtrl.message = 'Welcome Rentius';
-            welcomeCtrl.menus = [
-                {id: 'nutritionImage', url: '../icons/nutrition.png'}, {id: 'exerciseImage', url: '../icons/exercise.png'}
-            ];
-
+        })
+        .factory('CategoryService', function ($http) {
+            return {
+                rootCategory: function () {
+                    return $http.get('/category');
+                }
+            };
         });
