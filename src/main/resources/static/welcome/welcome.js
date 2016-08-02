@@ -22,23 +22,10 @@ angular.module('app.home', [])
             var welcomeCtrl = this;
             welcomeCtrl.message = 'Welcome Rentius';
 
-            MenuService.all('123').then(function (result) {
-                return CategoryService.rootCategory();
-            }).then(function (result) {
-                console.log(result.data);
-                welcomeCtrl.menus = [
-                    {id: 'nutritionImage', url: '../icons/nutrition.png'}, {id: 'exerciseImage', url: '../icons/exercise.png'}
-                ];
+            CategoryService.rootCategory().then(function (result) {
+                welcomeCtrl.categories = result.data;
             }, function (error) {
-                //go back to login and display error message
                 console.log(error);
             });
 
-        })
-        .factory('CategoryService', function ($http) {
-            return {
-                rootCategory: function () {
-                    return $http.get('/category');
-                }
-            };
         });

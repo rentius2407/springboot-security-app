@@ -3,12 +3,12 @@ angular.module('app.nutrition', [])
 
             $stateProvider
                     .state('app.nutrition', {
-                        url: '/nutrition',
-//                        data: {
-//                            requireLogin: true,
-//                            moduleName: 'home',
-//                            moduleDisplayHeader: 'Home'
-//                        },
+                        url: '/nutrition/:id',
+                        resolve: {
+                            nutritionId: ['$stateParams', function ($stateParams) {
+                                    return $stateParams.id;
+                                }]
+                        },
                         views: {
                             'main@': {
                                 controller: 'NutritionController as nutritionCtrl',
@@ -17,13 +17,17 @@ angular.module('app.nutrition', [])
                         }
                     });
         })
-        .controller('NutritionController', function (UserDetailService) {
+        .controller('NutritionController', function (UserDetailService, nutritionId, CategoryService) {
 
             var nutritionCtrl = this;
 
-                nutritionCtrl.detailsLabel = 'View Details';
-            if(UserDetailService.hasRole('ADMIN')) {
-                    nutritionCtrl.detailsLabel = 'Add Details';
+            CategoryService.categoryByParent(nutritionId).then(function (result) {
+               console.log(result.data); 
+            });
+
+            nutritionCtrl.detailsLabel = 'View Details';
+            if (UserDetailService.hasRole('ADMIN')) {
+                nutritionCtrl.detailsLabel = 'Add Details';
             }
 
         })

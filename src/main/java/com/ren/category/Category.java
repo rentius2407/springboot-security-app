@@ -32,6 +32,8 @@ public class Category implements Serializable {
     @JoinColumn(name = "parent_id")
     @ManyToOne
     private Category parentCategory;
+    @Column(name = "view_state")
+    private String viewState;
 
     public Category() {
     }
@@ -64,10 +66,19 @@ public class Category implements Serializable {
         this.parentCategory = parentCategory;
     }
 
+    public String getViewState() {
+        return viewState;
+    }
+
+    public void setViewState(String viewState) {
+        this.viewState = viewState;
+    }
+
     public static class FIND_ALL_ROOT {
 
         public final static String QUERY = "select c from Category c where c.parentCategory is null";
     }
+
     public static class FIND_ALL_BY_PARENT {
 
         public final static String PARAM_PARENT_ID = "id";
