@@ -171,6 +171,40 @@
                                  referencedTableName="category_type"
                                  referencedColumnNames="id"/>             
     </changeSet>  
+    
+    <changeSet author="rentius" id="insert category nutrition">
+        <insert tableName="category">
+            <column name="name" value="Nutrition"/>
+        </insert>               
+    </changeSet>     
+    
+    <changeSet author="rentius" id="insert category nutrition sub category items">
+        <insert tableName="category">
+            <column name="name" value="Breakfast"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+        </insert>               
+        <insert tableName="category">
+            <column name="name" value="Lunch"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+        </insert>               
+        <insert tableName="category">
+            <column name="name" value="Dinner"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+        </insert>               
+        <insert tableName="category">
+            <column name="name" value="Snacks"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+        </insert>               
+        <insert tableName="category">
+            <column name="name" value="Mid Morning"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Snacks')"/>
+        </insert>               
+        <insert tableName="category">
+            <column name="name" value="Mid Afternoon"/>
+            <column name="parent_id" valueComputed="(select id from category where name = 'Snacks')"/>
+        </insert>               
+    </changeSet>     
+    
     <changeSet author="rentius" id="create table option">
         <createSequence 
             incrementBy="1"
