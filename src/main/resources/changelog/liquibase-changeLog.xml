@@ -114,5 +114,92 @@
             <column name="password" value="$2a$10$jT4b87gcQVgjv5iEfz5B2.83EmuvTatTNAYz1KMCzuqa9UcHiQxmi"/>
             <column name="role_id" valueComputed="(select id from app_role where name = 'ADMIN')"/>
         </insert>               
-    </changeSet>           
+    </changeSet> 
+    <changeSet author="rentius" id="create table category_type">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="category_type_seq"
+            startValue="1"/> 
+              
+        <createTable tableName="category_type">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="category_type_seq"
+                         tableName="category_type"/> 
+    </changeSet>
+    
+    <changeSet author="rentius" id="create table category">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="category_seq"
+            startValue="1"/> 
+              
+        <createTable tableName="category">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+            <column name="category_type_id" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="category_seq"
+                         tableName="category"/>   
+        
+        <addForeignKeyConstraint baseTableName="category"
+                                 baseColumnNames="parent_id"
+                                 constraintName="category_parent_id"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>             
+        <addForeignKeyConstraint baseTableName="category"
+                                 baseColumnNames="category_type_id"
+                                 constraintName="category_category_type_id"
+                                 referencedTableName="category_type"
+                                 referencedColumnNames="id"/>             
+    </changeSet>  
+    <changeSet author="rentius" id="create table option">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="option_seq"
+            startValue="1"/> 
+              
+        <createTable tableName="option">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="option_seq"
+                         tableName="option"/>   
+        
+        <addForeignKeyConstraint baseTableName="option"
+                                 baseColumnNames="category_id"
+                                 constraintName="option_category_id"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>             
+    </changeSet>                    
 </databaseChangeLog>
