@@ -34,4 +34,8 @@ public class CategoryRepository {
                 .getResultList();
     }
 
+    public Category findById(Long id) {
+        return entityManager.find(Category.class, id);
+    }
+
 }

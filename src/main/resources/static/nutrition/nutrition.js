@@ -22,7 +22,7 @@ angular.module('app.nutrition', [])
             var nutritionCtrl = this;
 
             CategoryService.categoryByParent(nutritionId).then(function (result) {
-               console.log(result.data); 
+               nutritionCtrl.categories = result.data;
             });
 
             nutritionCtrl.detailsLabel = 'View Details';

@@ -29,4 +29,9 @@ public class CategoryService {
     public List<Category> findCategoryByParentId(Long id) {
         return categoryRespository.findCategoryByParentId(id);
     }
+
+    @Transactional(readOnly = true)
+    public Category findCategoryById(Long id) {
+        return categoryRespository.findById(id);
+    }
 }

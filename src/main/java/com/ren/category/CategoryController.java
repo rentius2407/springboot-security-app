@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping(MappingApi.CATEGORY)
 public class CategoryController {
-    
+
     @Autowired
     private CategoryService categoryService;
 
@@ -34,13 +34,19 @@ public class CategoryController {
         List<Category> rootCategories = categoryService.findRootCategories();
         return new ResponseEntity<>(rootCategories, HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/parent/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Category>> findCategoryByParentId(@PathVariable("id") Long parentId) {
-        
+
         List<Category> categories = categoryService.findCategoryByParentId(parentId);
-         return new ResponseEntity<>(categories, HttpStatus.OK);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
-    
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
+        System.out.println("id = " + id);
+        Category category = categoryService.findCategoryById(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
+    }
 
 }

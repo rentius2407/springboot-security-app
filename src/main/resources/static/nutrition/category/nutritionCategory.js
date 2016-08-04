@@ -3,10 +3,10 @@ angular.module('app.nutrition.category', [])
 
             $stateProvider
                     .state('app.nutrition.category', {
-                        url: '/category/:catName',
+                        url: '/category/:categoryId',
                         resolve: {
-                            catName: ['$stateParams', function ($stateParams) {
-                                    return $stateParams.catName;
+                            categoryId: ['$stateParams', function ($stateParams) {
+                                    return $stateParams.categoryId;
                                 }]
                         },
                         views: {
@@ -17,11 +17,15 @@ angular.module('app.nutrition.category', [])
                         }
                     });
         })
-        .controller('NutritionCategoryController', function (UserDetailService, catName) {
+        .controller('NutritionCategoryController', function (CategoryService, categoryId) {
             var nutritionCatCtrl = this;
-            nutritionCatCtrl.header = catName;
-            nutritionCatCtrl.addOption = false;
 
+            CategoryService.categoryById(categoryId).then(function (result) {
+                console.log(result);
+                nutritionCatCtrl.header = result.data.name;
+                
+            });
+            nutritionCatCtrl.addOption = false;
             nutritionCatCtrl.options = [];
 
             nutritionCatCtrl.addCategoryOption = function () {

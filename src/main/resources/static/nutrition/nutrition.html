@@ -7,7 +7,7 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
         <h1 class="page-header">Nutrition</h1>
     </div>
 </div>
-<div class="col-lg-3 col-md-6">
+<div class="col-lg-3 col-md-6" ng-repeat="category in nutritionCtrl.categories">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="row">
@@ -15,11 +15,11 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
                     <i class="glyphicon glyphicon-scale"></i>
                 </div>
                 <div class="col-xs-10">
-                    <div class="huge">Breakfast</div>
+                    <div class="huge">{{category.name}}</div>
                 </div>
             </div>
         </div>
-        <a ui-sref="app.nutrition.category({catName: 'Breakfast'})">
+        <a ui-sref="app.nutrition.category({categoryId: {{category.id}}})">
             <div class="panel-footer">
                 <span class="pull-left">{{nutritionCtrl.detailsLabel}}</span>
                 <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
@@ -28,111 +28,3 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
         </a>
     </div>
 </div>
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-green">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="glyphicon glyphicon-grain"></i>
-                </div>
-                <div class="col-xs-9">
-                    <div class="huge">Lunch</div>
-                </div>
-            </div>
-        </div>
-        <a ui-sref="app.nutrition.category({catName: 'Lunch'})">
-            <div class="panel-footer">
-                <span class="pull-left">{{nutritionCtrl.detailsLabel}}</span>
-                <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-yellow">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="glyphicon glyphicon-time"></i>
-                </div>
-                <div class="col-xs-9">
-                    <div class="huge">Dinner</div>
-                </div>
-            </div>
-        </div>
-        <a ui-sref="app.nutrition.category({catName: 'Dinner'})">
-            <div class="panel-footer">
-                <span class="pull-left">{{nutritionCtrl.detailsLabel}}</span>
-                <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="col-lg-3 col-md-6">
-    <div class="panel panel-red">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-3">
-                    <i class="glyphicon glyphicon-apple"></i>
-                </div>
-                <div class="col-xs-9">
-                    <div class="huge">Snacks</div>
-                </div>
-            </div>
-        </div>
-        <a ui-sref="app.nutrition.category({catName: 'Snacks'})">
-            <div class="panel-footer">
-                <span class="pull-left">{{nutritionCtrl.detailsLabel}}</span>
-                <span class="pull-right"><i class="glyphicon glyphicon-arrow-right"></i></span>
-                <div class="clearfix"></div>
-            </div>
-        </a>
-    </div>
-</div>
-
-<!--
-<div class="page-break col-lg-12 col-md-12 col-sm-12"></div>
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <h3 class="panel-title">Nutrition</h3>
-    </div>
-    <div class="panel-body">
-        <h2>BREAKFAST</h2>
-        <ul class="padding-left">
-            <li>Option 1</li>
-        </ul>
-        <p>
-            avocado power shake - 
-            1/4 avocado
-            35ml made up green tea
-            1/4 cup unsweetened almond milk
-            1/4 cup vanilla protein powder
-            1/4 cup full fat greek yoghurt
-            blend together and add a bit of water If it's too thick
-        </p>
-        <ul class="padding-left">
-            <li>Option 2</li>
-        </ul>    
-        <p>
-            eat as much smoked salmon as you want
-        </p>
-        <ul class="padding-left">
-            <li>Option 3</li>
-        </ul>
-        <p>4 egg yolks</p>
-        <ul class="padding-left">
-            <li>Option 4</li>
-        </ul>
-        <p>
-            full fat greek yoghurt with almond flakes and 5 blueberries and 5 raspberries
-        </p>
-        <ul class="padding-left">
-            <li>Option 5</li>
-        </ul>
-        <p>
-            1 sausage, 2 egg yolks and 3 cherry tomatoes
-        </p>
-    </div>
-</div>-->
