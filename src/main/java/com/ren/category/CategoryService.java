@@ -5,7 +5,9 @@
  */
 package com.ren.category;
 
+import com.ren.category.option.Option;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,4 +36,15 @@ public class CategoryService {
     public Category findCategoryById(Long id) {
         return categoryRespository.findById(id);
     }
+    
+    @Transactional
+    public Set<Option> create(Long categoryId, Option option) {
+        
+        Category category = findCategoryById(categoryId);
+        category.add(option);
+        category = categoryRespository.update(category);
+        
+        return category.getOptions();
+    }
+    
 }

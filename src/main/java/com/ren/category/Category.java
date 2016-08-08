@@ -5,13 +5,20 @@
  */
 package com.ren.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ren.category.option.Option;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,6 +41,9 @@ public class Category implements Serializable {
     private Category parentCategory;
     @Column(name = "view_state")
     private String viewState;
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Set<Option> options = new HashSet<>();
 
     public Category() {
     }
@@ -74,6 +84,19 @@ public class Category implements Serializable {
         this.viewState = viewState;
     }
 
+    public Set<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Set<Option> options) {
+        this.options = options;
+    }
+
+    public void add(Option option) {
+        option.setCategory(this);
+        getOptions().add(option);
+    }
+    
     public static class FIND_ALL_ROOT {
 
         public final static String QUERY = "select c from Category c where c.parentCategory is null";

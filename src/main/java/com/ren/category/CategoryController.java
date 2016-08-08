@@ -6,12 +6,15 @@
 package com.ren.category;
 
 import com.ren.api.MappingApi;
+import com.ren.category.option.Option;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,5 +51,12 @@ public class CategoryController {
         Category category = categoryService.findCategoryById(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
-
+    
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Set<Option>> createOption(@PathVariable("id") Long categoryId, @RequestBody Option option) {
+        System.out.println("Post method");
+        System.out.println("Id = " + categoryId);
+        Set<Option> options = categoryService.create(categoryId, option);
+        return new ResponseEntity<>(options, HttpStatus.OK);
+    }
 }

@@ -23,7 +23,7 @@ angular.module('app.nutrition.category', [])
             CategoryService.categoryById(categoryId).then(function (result) {
                 console.log(result);
                 nutritionCatCtrl.header = result.data.name;
-                
+
             });
             nutritionCatCtrl.addOption = false;
             nutritionCatCtrl.options = [];
@@ -36,8 +36,16 @@ angular.module('app.nutrition.category', [])
                         content: nutritionCatCtrl.optionContent
                     };
 
-                    nutritionCatCtrl.options.push(newOption);
-                    nutritionCatCtrl.addOption = false;
+                    CategoryService.createOption(categoryId, newOption).then(function (result) {
+                        var data = result.data;
+                        nutritionCatCtrl.options.push(newOption);
+                    }, function (error) {
+                        console.log('Error occured');
+                    }).finally(function () {
+                        nutritionCatCtrl.addOption = false;
+                    });
+
+
                 } else {
                     nutritionCatCtrl.optionName = '';
                     nutritionCatCtrl.optionContent = '';

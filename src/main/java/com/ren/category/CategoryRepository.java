@@ -5,6 +5,7 @@
  */
 package com.ren.category;
 
+import com.ren.category.option.Option;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -37,5 +38,8 @@ public class CategoryRepository {
     public Category findById(Long id) {
         return entityManager.find(Category.class, id);
     }
-
+    
+    public Category update(Category category) {
+        return entityManager.merge(category);
+    }
 }
