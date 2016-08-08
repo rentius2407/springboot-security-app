@@ -11,8 +11,6 @@ angular.module('app.category', [])
                     return $http.get('/api/category/' + id);
                 },
                 createOption: function (id, option) {
-                    console.log('Category id = ' + id);
-                    console.log(option);
                     return $http.post('/api/category/' + id, option);
                 }
             };

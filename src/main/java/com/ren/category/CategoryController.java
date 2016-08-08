@@ -47,15 +47,12 @@ public class CategoryController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
-        System.out.println("id = " + id);
         Category category = categoryService.findCategoryById(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<Set<Option>> createOption(@PathVariable("id") Long categoryId, @RequestBody Option option) {
-        System.out.println("Post method");
-        System.out.println("Id = " + categoryId);
         Set<Option> options = categoryService.create(categoryId, option);
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
