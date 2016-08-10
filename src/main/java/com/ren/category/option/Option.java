@@ -67,5 +67,12 @@ public class Option implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+    
+
+    public static class FIND_BY_CATEGORY_ID {
+
+        public final static String PARAM_CATEGORY_ID = "id";
+        public final static String QUERY = "select o from Option o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
+    }    
 
 }

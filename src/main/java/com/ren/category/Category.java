@@ -108,4 +108,10 @@ public class Category implements Serializable {
         public final static String QUERY = "select c from Category c JOIN c.parentCategory pc where pc.id = :" + PARAM_PARENT_ID;
     }
 
+    public static class FIND_WITH_OPTIONS {
+
+        public final static String PARAM_ID = "id";
+        public final static String QUERY = "select c from Category c LEFT JOIN FETCH c.options where c.id = :" + PARAM_ID;
+    }
+
 }

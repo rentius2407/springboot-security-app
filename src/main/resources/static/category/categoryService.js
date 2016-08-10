@@ -12,6 +12,9 @@ angular.module('app.category', [])
                 },
                 createOption: function (id, option) {
                     return $http.post('/api/category/' + id, option);
+                },
+                categoryByIdWithOptions: function (id) {
+                    return $http.get('/api/category/' + id + '/option');
                 }
             };
         });

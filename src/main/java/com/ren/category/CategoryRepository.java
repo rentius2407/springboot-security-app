@@ -6,9 +6,11 @@
 package com.ren.category;
 
 import com.ren.category.option.Option;
+import com.ren.db.SingleResultNull;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +40,22 @@ public class CategoryRepository {
     public Category findById(Long id) {
         return entityManager.find(Category.class, id);
     }
-    
+
     public Category update(Category category) {
         return entityManager.merge(category);
     }
+
+    public List<Option> findOptionsForCategory(Long categoryId) {
+        return entityManager.createQuery(Option.FIND_BY_CATEGORY_ID.QUERY, Option.class)
+                .setParameter(Option.FIND_BY_CATEGORY_ID.PARAM_CATEGORY_ID, categoryId)
+                .getResultList();
+    }
+
+    public Category findWithOptions(Long categoryId) {
+        TypedQuery<Category> query = entityManager.createQuery(Category.FIND_WITH_OPTIONS.QUERY, Category.class)
+                .setParameter(Category.FIND_WITH_OPTIONS.PARAM_ID, categoryId);
+
+        return new SingleResultNull<>(query).get();
+    }
+
 }

@@ -50,10 +50,18 @@ public class CategoryController {
         Category category = categoryService.findCategoryById(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<Set<Option>> createOption(@PathVariable("id") Long categoryId, @RequestBody Option option) {
         Set<Option> options = categoryService.create(categoryId, option);
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{id}/option", method = RequestMethod.GET)
+    public ResponseEntity<OptionsDto> findOptionsForCategory(@PathVariable("id") Long categoryId) {
+        Category category = categoryService.findCategoryWithOptions(categoryId);
+        OptionsDto optionsDto = new OptionsDto(category, category.getOptions());
+        return new ResponseEntity<>(optionsDto, HttpStatus.OK);
+    }
+
 }
