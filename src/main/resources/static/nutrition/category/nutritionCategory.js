@@ -19,14 +19,15 @@ angular.module('app.nutrition.category', [])
         })
         .controller('NutritionCategoryController', function (CategoryService, categoryId) {
             var nutritionCatCtrl = this;
+    
+            nutritionCatCtrl.options = [];
 
             CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
-                console.log(result);
                 nutritionCatCtrl.header = result.data.category.name;
+                nutritionCatCtrl.options = result.data.options;
 
             });
             nutritionCatCtrl.addOption = false;
-            nutritionCatCtrl.options = [];
 
             nutritionCatCtrl.addCategoryOption = function () {
                 if (nutritionCatCtrl.addOption) { //adding new at this moment
