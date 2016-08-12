@@ -8,6 +8,7 @@ package com.ren.category;
 import com.ren.api.MappingApi;
 import com.ren.category.option.Option;
 import com.ren.category.option.event.OptionCreateEvent;
+import com.ren.category.option.event.OptionUpdateEvent;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +69,13 @@ public class CategoryController {
     @RequestMapping(value = "/{categoryId}/option/{optionId}", method = RequestMethod.GET)
     public ResponseEntity<Option> findOptionById(@PathVariable("categoryId") Long categoryId, @PathVariable("optionId") Long optionId) {
         Category category = categoryService.findCategoryWithOptions(categoryId);
-        Option option = category.getOptions(optionId);
+        Option option = category.getOption(optionId);
         return new ResponseEntity<>(option, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{categoryId}/option", method = RequestMethod.PUT)
+    public ResponseEntity<Set<Option>> createOption(@PathVariable("categoryId") Long categoryId, @RequestBody Option option) {
+        Set<Option> options = categoryService.update(new OptionUpdateEvent(categoryId, option));
+        return new ResponseEntity<>(options, HttpStatus.OK);
+    }
 }

@@ -72,40 +72,20 @@ angular.module('app.nutrition.category', [])
                 }
             };
         })
-        .controller('NutritionEditOptionController', function (CategoryService, categoryId, optionId) {
+        .controller('NutritionEditOptionController', function (CategoryService, categoryId, optionId, $state) {
             var nutritionEditOptionCtrl = this;
-            nutritionEditOptionCtrl.header = 'Test';
 
             CategoryService.findOptionByCategoryIdAndId(categoryId, optionId).then(function (result) {
-                console.log(result);
                 nutritionEditOptionCtrl.option = result.data;
             });
             nutritionEditOptionCtrl.updateOption = function () {
-                
-                console.log('update option was called!');
-                console.log(nutritionEditOptionCtrl.option);
-//                if (nutritionEditOptionCtrl.addOption) { //adding new at this moment
-//
-//                    var newOption = {
-//                        name: nutritionEditOptionCtrl.optionName,
-//                        content: nutritionEditOptionCtrl.optionContent
-//                    };
-//
-//                    CategoryService.createOption(categoryId, newOption).then(function (result) {
-//                        var data = result.data;
-//                        nutritionEditOptionCtrl.options.push(data);
-//                    }, function (error) {
-//                        console.log('Error occured');
-//                    }).finally(function () {
-//                        nutritionEditOptionCtrl.addOption = false;
-//                    });
-//
-//
-//                } else {
-//                    nutritionEditOptionCtrl.optionName = '';
-//                    nutritionEditOptionCtrl.optionContent = '';
-//                    nutritionEditOptionCtrl.addOption = true;
-//                }
+
+                CategoryService.updateOption(categoryId, nutritionEditOptionCtrl.option).then(function (result) {
+                    $state.go('app.nutrition.category', {categoryId: categoryId});
+                }, function (error) {
+                    console.log('Error occured');
+                }).finally(function () {
+                });
             };
         })
         .factory('NutritionCategoryService', function ($window) {

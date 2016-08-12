@@ -7,6 +7,7 @@ package com.ren.category.option;
 
 import com.ren.category.Category;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -67,12 +68,45 @@ public class Option implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
+
+    public void updateWith(Option option) {
+        setName(option.getName());
+        setContent(option.getContent());
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.content);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Option other = (Option) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.content, other.content)) {
+            return false;
+        }
+        return true;
+    }
 
     public static class FIND_BY_CATEGORY_ID {
 
         public final static String PARAM_CATEGORY_ID = "id";
         public final static String QUERY = "select o from Option o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
-    }    
+    }
 
 }

@@ -97,7 +97,11 @@ public class Category implements Serializable {
         getOptions().add(option);
     }
 
-    public Option getOptions(Long optionId) {
+    public void update(Option option) {
+       getOption(option.getId()).updateWith(option);
+    }
+
+    public Option getOption(Long optionId) {
         for (Option option : getOptions()) {
             if (optionId.equals(option.getId())) {
                 return option;

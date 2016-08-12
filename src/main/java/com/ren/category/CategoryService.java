@@ -7,6 +7,7 @@ package com.ren.category;
 
 import com.ren.category.option.Option;
 import com.ren.category.option.event.OptionCreateEvent;
+import com.ren.category.option.event.OptionUpdateEvent;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,16 @@ public class CategoryService {
         
         Category category = findCategoryById(optionCreateEvent.getCategoryId());
         category.add(optionCreateEvent.getOption());
+        category = categoryRespository.update(category);
+        
+        return category.getOptions();
+    }
+    
+    @Transactional
+    public Set<Option> update(OptionUpdateEvent optionUpdateEvent) {
+        
+        Category category = findCategoryWithOptions(optionUpdateEvent.getCategoryId());
+        category.update(optionUpdateEvent.getOption());
         category = categoryRespository.update(category);
         
         return category.getOptions();
