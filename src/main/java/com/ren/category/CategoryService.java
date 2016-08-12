@@ -38,13 +38,13 @@ public class CategoryService {
     }
     
     @Transactional
-    public Set<Option> create(Long categoryId, Option option) {
+    public Option create(Long categoryId, Option option) {
         
         Category category = findCategoryById(categoryId);
         category.add(option);
-        category = categoryRespository.update(category);
+        categoryRespository.update(category);
         
-        return category.getOptions();
+        return option;
     }
 
     @Transactional(readOnly = true)

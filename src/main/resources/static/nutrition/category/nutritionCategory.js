@@ -39,7 +39,7 @@ angular.module('app.nutrition.category', [])
 
                     CategoryService.createOption(categoryId, newOption).then(function (result) {
                         var data = result.data;
-                        nutritionCatCtrl.options.push(newOption);
+                        nutritionCatCtrl.options.push(data);
                     }, function (error) {
                         console.log('Error occured');
                     }).finally(function () {

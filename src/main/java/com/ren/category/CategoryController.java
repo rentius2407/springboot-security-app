@@ -52,9 +52,9 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
-    public ResponseEntity<Set<Option>> createOption(@PathVariable("id") Long categoryId, @RequestBody Option option) {
-        Set<Option> options = categoryService.create(categoryId, option);
-        return new ResponseEntity<>(options, HttpStatus.OK);
+    public ResponseEntity<Option> createOption(@PathVariable("id") Long categoryId, @RequestBody Option option) {
+        option = categoryService.create(categoryId, option);
+        return new ResponseEntity<>(option, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/option", method = RequestMethod.GET)
