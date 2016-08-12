@@ -56,7 +56,8 @@ angular.module('app.nutrition.category', [])
 
                     CategoryService.createOption(categoryId, newOption).then(function (result) {
                         var data = result.data;
-                        nutritionCatCtrl.options.push(data);
+                        nutritionCatCtrl.options = [];
+                        nutritionCatCtrl.options = data;
                     }, function (error) {
                         console.log('Error occured');
                     }).finally(function () {
@@ -73,7 +74,7 @@ angular.module('app.nutrition.category', [])
         })
         .controller('NutritionEditOptionController', function (CategoryService, categoryId, optionId) {
             var nutritionEditOptionCtrl = this;
-            nutritionEditOptionCtrl.header  = 'Test';
+            nutritionEditOptionCtrl.header = 'Test';
 
 //            CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
 //                nutritionEditOptionCtrl.header = result.data.category.name;
