@@ -15,6 +15,9 @@ angular.module('app.category', [])
                 },
                 categoryByIdWithOptions: function (id) {
                     return $http.get('/api/category/' + id + '/option');
+                },
+                findOptionByCategoryIdAndId: function (categoryId, optionId) {
+                    return $http.get('/api/category/' + categoryId + '/option/' + optionId);
                 }
             };
         });

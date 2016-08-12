@@ -96,7 +96,16 @@ public class Category implements Serializable {
         option.setCategory(this);
         getOptions().add(option);
     }
-    
+
+    public Option getOptions(Long optionId) {
+        for (Option option : getOptions()) {
+            if (optionId.equals(option.getId())) {
+                return option;
+            }
+        }
+        throw new IllegalArgumentException("Option with id not found: " + optionId);
+    }
+
     public static class FIND_ALL_ROOT {
 
         public final static String QUERY = "select c from Category c where c.parentCategory is null";

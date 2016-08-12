@@ -65,4 +65,11 @@ public class CategoryController {
         return new ResponseEntity<>(optionsDto, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/{categoryId}/option/{optionId}", method = RequestMethod.GET)
+    public ResponseEntity<Option> findOptionById(@PathVariable("categoryId") Long categoryId, @PathVariable("optionId") Long optionId) {
+        Category category = categoryService.findCategoryWithOptions(categoryId);
+        Option option = category.getOptions(optionId);
+        return new ResponseEntity<>(option, HttpStatus.OK);
+    }
+
 }

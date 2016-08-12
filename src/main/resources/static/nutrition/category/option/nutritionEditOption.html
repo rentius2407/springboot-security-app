@@ -4,12 +4,12 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
 -->
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{nutritionEditOptionCtrl.header}}</h1>
+        <h1 class="page-header">{{nutritionEditOptionCtrl.option.category.name}}</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2">
-        <button type="button" class="btn btn-primary" ng-click="nutritionEditOptionCtrl.editOption()">Edit Option</button>
+        <button type="button" class="btn btn-primary" ng-click="nutritionEditOptionCtrl.updateOption()">Edit Option</button>
     </div>
 </div>
 <div class="page-break"></div>
@@ -18,11 +18,11 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
         <div class="col-lg-6">
             <div class="form-group">
                 <label>Option Name</label>
-                <input class="form-control" ng-model="nutritionEditOptionCtrl.optionName">
+                <input class="form-control" ng-model="nutritionEditOptionCtrl.option.name">
             </div>
             <div class="form-group">
                 <label>Recipe</label>
-                <textarea rows="15" cols="7" class="form-control textarea" ng-model="nutritionEditOptionCtrl.optionContent"></textarea>
+                <textarea rows="15" cols="7" class="form-control textarea" ng-model="nutritionEditOptionCtrl.option.content"></textarea>
             </div>   
         </div>
     </div>

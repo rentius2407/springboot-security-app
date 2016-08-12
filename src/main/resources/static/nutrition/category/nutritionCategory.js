@@ -76,12 +76,14 @@ angular.module('app.nutrition.category', [])
             var nutritionEditOptionCtrl = this;
             nutritionEditOptionCtrl.header = 'Test';
 
-//            CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
-//                nutritionEditOptionCtrl.header = result.data.category.name;
-//            });
-//            nutritionEditOptionCtrl.addOption = false;
-//
-//            nutritionEditOptionCtrl.addCategoryOption = function () {
+            CategoryService.findOptionByCategoryIdAndId(categoryId, optionId).then(function (result) {
+                console.log(result);
+                nutritionEditOptionCtrl.option = result.data;
+            });
+            nutritionEditOptionCtrl.updateOption = function () {
+                
+                console.log('update option was called!');
+                console.log(nutritionEditOptionCtrl.option);
 //                if (nutritionEditOptionCtrl.addOption) { //adding new at this moment
 //
 //                    var newOption = {
@@ -104,7 +106,7 @@ angular.module('app.nutrition.category', [])
 //                    nutritionEditOptionCtrl.optionContent = '';
 //                    nutritionEditOptionCtrl.addOption = true;
 //                }
-//            };
+            };
         })
         .factory('NutritionCategoryService', function ($window) {
         });
