@@ -394,3 +394,7 @@ table.dataTable thead .sorting:after {
 .page-header-app {
     color: white;
 }
+
+.panel-primary > .panel-heading a {
+    color: #fff;
+}
