@@ -178,7 +178,7 @@
         </insert>               
     </changeSet> 
     
-   <changeSet author="rentius" id="add column view_state">
+    <changeSet author="rentius" id="add column view_state">
         <addColumn tableName="category">
             <column name="view_state" type="varchar(50)">
                 <constraints nullable="true"/>
@@ -250,5 +250,21 @@
                                  constraintName="option_category_id"
                                  referencedTableName="category"
                                  referencedColumnNames="id"/>             
-    </changeSet>                    
+    </changeSet>   
+    
+    <changeSet author="rentius" id="insert app_role USER">
+        <insert tableName="app_role">
+            <column name="name" value="USER"/>
+        </insert>               
+    </changeSet>           
+    <changeSet author="rentius" id="insert app_user user test">
+        <insert tableName="app_user">
+            <column name="firstname" value="User"/>
+            <column name="lastname" value="Test"/>
+            <column name="email" value="user@jqfitness.co.uk"/>
+            <column name="password" value="$2a$10$jT4b87gcQVgjv5iEfz5B2.83EmuvTatTNAYz1KMCzuqa9UcHiQxmi"/>
+            <column name="role_id" valueComputed="(select id from app_role where name = 'USER')"/>
+        </insert>               
+    </changeSet> 
+                                                       
 </databaseChangeLog>
