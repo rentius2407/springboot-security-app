@@ -39,6 +39,10 @@ angular.module('app.nutrition.category', [])
 
             nutritionCatCtrl.options = [];
 
+            nutritionCatCtrl.cancel = function () {
+                nutritionCatCtrl.addOption = false;
+            };
+
             CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
                 nutritionCatCtrl.category = result.data.category;
 
@@ -79,6 +83,10 @@ angular.module('app.nutrition.category', [])
         })
         .controller('NutritionEditOptionController', function (CategoryService, categoryId, optionId, $state) {
             var nutritionEditOptionCtrl = this;
+
+            nutritionEditOptionCtrl.cancelOption = function () {
+                $state.go('app.nutrition.category', {categoryId: categoryId});
+            };
 
             CategoryService.findOptionByCategoryIdAndId(categoryId, optionId).then(function (result) {
                 nutritionEditOptionCtrl.option = result.data;
