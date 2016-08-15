@@ -12,7 +12,7 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
 </div>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-2">
-        <button type="button" class="btn btn-primary" ng-click="nutritionCatCtrl.addCategoryOption()">Add Option</button>
+        <button ng-show="nutritionCatCtrl.showAddOption" type="button" class="btn btn-primary" ng-click="nutritionCatCtrl.addCategoryOption()">Add Option</button>
         <button ng-show="nutritionCatCtrl.addOption" type="button" class="btn btn-primary" ng-click="nutritionCatCtrl.cancel()">Cancel</button>
     </div>
 </div>
@@ -37,7 +37,7 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
             <div class="panel panel-primary">
                 <div class="panel-heading clearfix">
                     <span class="pull-left">{{option.name}}</span>
-                    <span class="pull-right"><a ui-sref="app.nutrition.category.option({categoryId: {{nutritionCatCtrl.category.id}}, optionId: {{option.id}}})"><p class="glyphicon glyphicon-pencil"></p></a></span>
+                    <span ng-show="nutritionCatCtrl.showEditOption" class="pull-right"><a ui-sref="app.nutrition.category.option({categoryId: {{nutritionCatCtrl.category.id}}, optionId: {{option.id}}})"><p class="glyphicon glyphicon-pencil"></p></a></span>
                 </div>
                 <div class="panel-body">
                     <p>{{option.content}}</p>

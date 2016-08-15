@@ -40,7 +40,7 @@ public class CategoryController {
         return new ResponseEntity<>(rootCategories, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @RequestMapping(value = "/parent/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Category>> findCategoryByParentId(@PathVariable("id") Long parentId) {
 
@@ -48,7 +48,7 @@ public class CategoryController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
         Category category = categoryService.findCategoryById(id);
@@ -62,7 +62,7 @@ public class CategoryController {
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @RequestMapping(value = "/{id}/option", method = RequestMethod.GET)
     public ResponseEntity<OptionsDto> findOptionsForCategory(@PathVariable("id") Long categoryId) {
         Category category = categoryService.findCategoryWithOptions(categoryId);

@@ -34,7 +34,7 @@ angular.module('app.nutrition.category', [])
                         }
                     });
         })
-        .controller('NutritionCategoryController', function (CategoryService, categoryId, $state) {
+        .controller('NutritionCategoryController', function (CategoryService, categoryId, $state, UserDetailService) {
             var nutritionCatCtrl = this;
 
             nutritionCatCtrl.options = [];
@@ -54,6 +54,8 @@ angular.module('app.nutrition.category', [])
 
             });
             nutritionCatCtrl.addOption = false;
+            nutritionCatCtrl.showAddOption = UserDetailService.hasRole('ADMIN');
+            nutritionCatCtrl.showEditOption = UserDetailService.hasRole('ADMIN');
 
             nutritionCatCtrl.addCategoryOption = function () {
                 if (nutritionCatCtrl.addOption) { //adding new at this moment
