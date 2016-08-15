@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
  * @author cp332918
  */
 @RestController
-@PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping(MappingApi.CATEGORY)
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Category>> findRootCategories() {
 
@@ -40,6 +40,7 @@ public class CategoryController {
         return new ResponseEntity<>(rootCategories, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/parent/{id}", method = RequestMethod.GET)
     public ResponseEntity<List<Category>> findCategoryByParentId(@PathVariable("id") Long parentId) {
 
@@ -47,18 +48,21 @@ public class CategoryController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Category> findCategoryById(@PathVariable("id") Long id) {
         Category category = categoryService.findCategoryById(id);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     public ResponseEntity<Set<Option>> createOption(@PathVariable("id") long categoryId, @RequestBody Option option) {
         Set<Option> options = categoryService.create(new OptionCreateEvent(categoryId, option));
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{id}/option", method = RequestMethod.GET)
     public ResponseEntity<OptionsDto> findOptionsForCategory(@PathVariable("id") Long categoryId) {
         Category category = categoryService.findCategoryWithOptions(categoryId);
@@ -66,6 +70,7 @@ public class CategoryController {
         return new ResponseEntity<>(optionsDto, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{categoryId}/option/{optionId}", method = RequestMethod.GET)
     public ResponseEntity<Option> findOptionById(@PathVariable("categoryId") Long categoryId, @PathVariable("optionId") Long optionId) {
         Category category = categoryService.findCategoryWithOptions(categoryId);
@@ -73,6 +78,7 @@ public class CategoryController {
         return new ResponseEntity<>(option, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{categoryId}/option", method = RequestMethod.PUT)
     public ResponseEntity<Set<Option>> createOption(@PathVariable("categoryId") Long categoryId, @RequestBody Option option) {
         Set<Option> options = categoryService.update(new OptionUpdateEvent(categoryId, option));

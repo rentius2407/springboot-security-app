@@ -65,7 +65,6 @@ angular.module('app',
                 appCtrl.navCollapsed = !appCtrl.navCollapsed;
             };
 
-            appCtrl.menus = [{state: 'app.home', description: 'Home'}];
             addmenus(appCtrl, UserDetailService);
 
             appCtrl.showMenu = UserDetailService.validUser();
@@ -78,6 +77,7 @@ angular.module('app',
         });
 
 function addmenus(appCtrl, UserDetailService) {
+    appCtrl.menus = [{state: 'app.home', description: 'Home'}];
     if (UserDetailService.hasRole('ADMIN')) {
         appCtrl.menus.push({state: 'app.home', description: 'Register User'});
         appCtrl.menus.push({state: 'app.home', description: 'Create Group'});
