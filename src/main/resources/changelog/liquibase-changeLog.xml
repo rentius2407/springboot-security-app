@@ -251,7 +251,6 @@
                                  referencedTableName="category"
                                  referencedColumnNames="id"/>             
     </changeSet>   
-    
     <changeSet author="rentius" id="insert app_role USER">
         <insert tableName="app_role">
             <column name="name" value="USER"/>
@@ -266,5 +265,45 @@
             <column name="role_id" valueComputed="(select id from app_role where name = 'USER')"/>
         </insert>               
     </changeSet> 
-                                                       
+    <changeSet author="rentius" id="create table app_group">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="app_group_seq"
+            startValue="1"/> 
+              
+        <createTable tableName="app_group">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="app_group_seq"
+                         tableName="app_group"/>                
+    </changeSet>      
+    <changeSet author="rentius" id="create table app_user_group">
+        <createTable tableName="app_user_group">
+            <column name="app_user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="app_user_group"
+                                 baseColumnNames="app_user_id"
+                                 constraintName="app_user_group_app_user_id"
+                                 referencedTableName="app_user"
+                                 referencedColumnNames="id"/>          
+        
+        <addForeignKeyConstraint baseTableName="app_user_group"
+                                 baseColumnNames="app_group_id"
+                                 constraintName="app_user_group_app_group_id"
+                                 referencedTableName="app_group"
+                                 referencedColumnNames="id"/>          
+    </changeSet>      
 </databaseChangeLog>
