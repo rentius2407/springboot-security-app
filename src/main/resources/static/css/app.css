@@ -398,3 +398,9 @@ table.dataTable thead .sorting:after {
 .panel-primary > .panel-heading a {
     color: #fff;
 }
+
+.back-header-button {
+    margin: .67em 0;
+    margin-top: 23px;
+    margin-bottom: 10px;
+}

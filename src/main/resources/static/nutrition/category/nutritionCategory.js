@@ -34,13 +34,18 @@ angular.module('app.nutrition.category', [])
                         }
                     });
         })
-        .controller('NutritionCategoryController', function (CategoryService, categoryId) {
+        .controller('NutritionCategoryController', function (CategoryService, categoryId, $state) {
             var nutritionCatCtrl = this;
 
             nutritionCatCtrl.options = [];
 
             CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
                 nutritionCatCtrl.category = result.data.category;
+
+                nutritionCatCtrl.back = function () {
+                    $state.go('app.nutrition', {id: nutritionCatCtrl.category.parentCategory.id});
+                };
+
                 nutritionCatCtrl.options = result.data.options;
 
             });

@@ -17,12 +17,15 @@ angular.module('app.nutrition', [])
                         }
                     });
         })
-        .controller('NutritionController', function (UserDetailService, nutritionId, CategoryService) {
+        .controller('NutritionController', function (UserDetailService, nutritionId, CategoryService, $state) {
 
             var nutritionCtrl = this;
+            nutritionCtrl.back = function () {
+                $state.go('app.home');
+            };
 
             CategoryService.categoryByParent(nutritionId).then(function (result) {
-               nutritionCtrl.categories = result.data;
+                nutritionCtrl.categories = result.data;
             });
 
             nutritionCtrl.detailsLabel = 'View Details';

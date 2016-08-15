@@ -4,7 +4,10 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
 -->
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{nutritionCatCtrl.category.name}}</h1>
+        <div class="page-header clearfix">
+            <h1 class="pull-left">{{nutritionCatCtrl.category.name}}</h1>
+            <a type="button" class="btn btn-primary pull-right back-header-button" ng-click="nutritionCatCtrl.back()">Back</a>
+        </div>        
     </div>
 </div>
 <div class="row">
