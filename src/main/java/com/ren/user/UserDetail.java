@@ -11,6 +11,7 @@ package com.ren.user;
  */
 public class UserDetail {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String role;
@@ -39,11 +40,20 @@ public class UserDetail {
         this.role = role;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public static UserDetail from(User user) {
         UserDetail detail = new UserDetail();
         detail.setFirstName(user.getFirstName());
         detail.setLastName(user.getLastName());
         detail.setRole(user.getRoleName());
+        detail.setId(user.getId());
 
         return detail;
     }

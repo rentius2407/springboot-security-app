@@ -7,6 +7,9 @@ angular.module('app.nutrition.category', [])
                         resolve: {
                             categoryId: ['$stateParams', function ($stateParams) {
                                     return $stateParams.categoryId;
+                                }],
+                            nutritionId: ['$stateParams', function ($stateParams) {
+                                    return $stateParams.id;
                                 }]
                         },
                         views: {
@@ -34,7 +37,7 @@ angular.module('app.nutrition.category', [])
                         }
                     });
         })
-        .controller('NutritionCategoryController', function (CategoryService, categoryId, $state, UserDetailService) {
+        .controller('NutritionCategoryController', function (CategoryService, categoryId, $state, UserDetailService, nutritionId) {
             var nutritionCatCtrl = this;
 
             nutritionCatCtrl.options = [];
@@ -43,19 +46,22 @@ angular.module('app.nutrition.category', [])
                 nutritionCatCtrl.addOption = false;
             };
 
-            CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
-                nutritionCatCtrl.category = result.data.category;
-
-                nutritionCatCtrl.back = function () {
-                    $state.go('app.nutrition', {id: nutritionCatCtrl.category.parentCategory.id});
-                };
-
-                nutritionCatCtrl.options = result.data.options;
-
-            });
             nutritionCatCtrl.addOption = false;
             nutritionCatCtrl.showAddOption = UserDetailService.hasRole('ADMIN');
             nutritionCatCtrl.showEditOption = UserDetailService.hasRole('ADMIN');
+
+            nutritionCatCtrl.back = function () {
+                $state.go('app.nutrition', {id: nutritionId});
+            };
+
+            if (UserDetailService.hasRole('USER')) {
+                var userDetail = UserDetailService.get();
+            } else {
+                CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
+                    nutritionCatCtrl.category = result.data.category;
+                    nutritionCatCtrl.options = result.data.options;
+                });
+            }
 
             nutritionCatCtrl.addCategoryOption = function () {
                 if (nutritionCatCtrl.addOption) { //adding new at this moment
