@@ -305,5 +305,16 @@
                                  constraintName="app_user_group_app_group_id"
                                  referencedTableName="app_group"
                                  referencedColumnNames="id"/>          
-    </changeSet>      
+    </changeSet>  
+    <changeSet author="rentius" id="insert app_group name PREMIUM_MEMBER">
+        <insert tableName="app_group">
+            <column name="name" value="PREMIUM_MEMBER"/>
+        </insert>               
+    </changeSet>         
+    <changeSet author="rentius" id="insert app_user_group group PREMIUM_MEMBER user user@jqfitness.co.uk">
+        <insert tableName="app_user_group">
+            <column name="app_user_id" valueComputed="(select id from app_user where email = 'user@jqfitness.co.uk')"/>
+            <column name="app_group_id" valueComputed="(select id from app_group where name = 'PREMIUM_MEMBER')"/>
+        </insert>               
+    </changeSet>         
 </databaseChangeLog>
