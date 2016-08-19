@@ -316,5 +316,27 @@
             <column name="app_user_id" valueComputed="(select id from app_user where email = 'user@jqfitness.co.uk')"/>
             <column name="app_group_id" valueComputed="(select id from app_group where name = 'PREMIUM_MEMBER')"/>
         </insert>               
-    </changeSet>         
+    </changeSet>    
+    <changeSet author="rentius" id="create table app_group_option">
+        <createTable tableName="app_group_option">
+            <column name="option_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_group_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="app_group_option"
+                                 baseColumnNames="option_id"
+                                 constraintName="app_group_option_option_id"
+                                 referencedTableName="option"
+                                 referencedColumnNames="id"/>          
+        
+        <addForeignKeyConstraint baseTableName="app_group_option"
+                                 baseColumnNames="app_group_id"
+                                 constraintName="app_group_option_app_group_id"
+                                 referencedTableName="app_group"
+                                 referencedColumnNames="id"/>          
+    </changeSet>          
 </databaseChangeLog>
