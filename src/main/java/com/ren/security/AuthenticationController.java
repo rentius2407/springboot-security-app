@@ -15,6 +15,7 @@ import com.ren.security.token.util.JwtUtil;
 import com.ren.user.User;
 import com.ren.user.UserDetail;
 import com.ren.user.UserService;
+import com.ren.user.group.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

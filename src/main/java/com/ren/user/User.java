@@ -5,13 +5,17 @@
  */
 package com.ren.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ren.user.group.Group;
 import com.ren.user.role.Role;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -39,6 +43,10 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinTable(name = "app_user_group", joinColumns = @JoinColumn(name = "app_user_id"), inverseJoinColumns = @JoinColumn(name = "app_group_id"))
+    private Group group;
 
     public Long getId() {
         return id;
@@ -90,6 +98,14 @@ public class User implements Serializable {
 
     public String getRoleName() {
         return getRole().getName();
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public boolean invalidId(Long userId) {

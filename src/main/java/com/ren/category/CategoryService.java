@@ -68,5 +68,10 @@ public class CategoryService {
     public Category findCategoryWithOptions(Long categoryId) {
         return categoryRespository.findWithOptions(categoryId);
     }
+
+    @Transactional(readOnly = true)
+    public List<Option> findOptionByCategoryAndGroup(Long categoryId, Long groupId) {
+        return categoryRespository.findOptionsByCategoryAndGroup(categoryId, groupId);
+    }
     
 }

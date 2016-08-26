@@ -58,4 +58,8 @@ public class CategoryRepository {
         return new SingleResultNull<>(query).get();
     }
 
+    public List<Option> findOptionsByCategoryAndGroup(Long categoryId, Long groupId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

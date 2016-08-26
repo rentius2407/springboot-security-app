@@ -84,4 +84,14 @@ public class CategoryController {
         Set<Option> options = categoryService.update(new OptionUpdateEvent(categoryId, option));
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
+    
+    @PreAuthorize("hasAuthority('USER')")
+    @RequestMapping(value = "/{categoryId}/group/{groupId}/option", method = RequestMethod.GET)
+    public ResponseEntity<List<Option>> findOptionByCategoryAndGroup(@PathVariable("categoryId") Long categoryId, @PathVariable("groupId") Long groupId) {
+        
+        List<Option> options = categoryService.findOptionByCategoryAndGroup(categoryId, groupId);
+        return new ResponseEntity<>(options, HttpStatus.OK);
+    }
+    
+    
 }
