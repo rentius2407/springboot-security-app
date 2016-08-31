@@ -59,7 +59,12 @@ public class CategoryRepository {
     }
 
     public List<Option> findOptionsByCategoryAndGroup(Long categoryId, Long groupId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TypedQuery<Option> query = entityManager.createQuery(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.QUERY, Option.class)
+                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_CATEGORY_ID, categoryId)
+                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_GROUP_ID, groupId);
+        
+        return query.getResultList();
+        
     }
 
 }

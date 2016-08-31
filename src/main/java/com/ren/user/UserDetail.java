@@ -15,6 +15,7 @@ public class UserDetail {
     private String firstName;
     private String lastName;
     private String role;
+    private Long groupId;
 
     public String getFirstName() {
         return firstName;
@@ -48,12 +49,21 @@ public class UserDetail {
         this.id = id;
     }
 
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
     public static UserDetail from(User user) {
         UserDetail detail = new UserDetail();
         detail.setFirstName(user.getFirstName());
         detail.setLastName(user.getLastName());
         detail.setRole(user.getRoleName());
         detail.setId(user.getId());
+        detail.setGroupId(user.getGroupId());
 
         return detail;
     }

@@ -112,6 +112,10 @@ public class User implements Serializable {
         return !getId().equals(userId);
     }
 
+    public Long getGroupId() {
+        return getGroup().getId();
+    }
+
     public static class FIND_BY_USERNAME {
 
         public final static String PARAM_EMAIL = "email";

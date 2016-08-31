@@ -21,6 +21,9 @@ angular.module('app.category', [])
                 },
                 updateOption: function (categoryId, option) {
                     return $http.put('/api/category/' + categoryId + '/option', option);
+                },
+                findOptionByCategoryAndGroup: function (categoryId, groupId) {
+                    return $http.get('/api/category/' + categoryId + '/group/' + groupId + '/option');
                 }
             };
         });

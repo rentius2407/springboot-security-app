@@ -56,6 +56,12 @@ angular.module('app.nutrition.category', [])
 
             if (UserDetailService.hasRole('USER')) {
                 var userDetail = UserDetailService.get();
+                CategoryService.findOptionByCategoryAndGroup(categoryId, userDetail.groupId).then(function (result) {
+                    if (result.data.length > 0) {
+                        nutritionCatCtrl.options = result.data;
+                        nutritionCatCtrl.category = result.data[0].category;
+                    }
+                });
             } else {
                 CategoryService.categoryByIdWithOptions(categoryId).then(function (result) {
                     nutritionCatCtrl.category = result.data.category;
