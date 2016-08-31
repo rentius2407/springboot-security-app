@@ -113,7 +113,16 @@ public class User implements Serializable {
     }
 
     public Long getGroupId() {
-        return getGroup().getId();
+
+        if (!hasRole(Role.INSTANCE.ADMIN)) {
+            return getGroup().getId();
+        }
+
+        return null;
+    }
+
+    public boolean hasRole(Role.INSTANCE roleInstance) {
+        return getRole().getName().equals(roleInstance.toString());
     }
 
     public static class FIND_BY_USERNAME {

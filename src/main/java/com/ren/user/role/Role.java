@@ -27,6 +27,10 @@ public class Role implements Serializable {
     private Long id;
     @Column(name = "name")
     private String name;
+    
+    public enum INSTANCE {
+        ADMIN, USER
+    }
 
     public Role() {
     }
