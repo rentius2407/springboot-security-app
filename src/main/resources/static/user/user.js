@@ -1,5 +1,47 @@
 angular.module('app.user', [])
+        .config(function ($stateProvider) {
+
+            $stateProvider
+                    .state('app.user', {
+                        url: '/user',
+                        data: {
+                            secure: false
+                        },
+                        views: {
+                            'main@': {
+                                controller: 'UserController as userCtrl',
+                                templateUrl: 'user/user.html'
+                            }
+                        }
+                    });
+        })
         .controller('UserController', function () {
+
+            var userCtrl = this;
+            var myData = [
+                {
+                    "firstName": "Cox",
+                    "lastName": "Carney"
+                },
+                {
+                    "firstName": "Lorraine",
+                    "lastName": "Wise"
+                },
+                {
+                    "firstName": "Nancy",
+                    "lastName": "Waters"
+                }
+            ];
+
+            userCtrl.gridOptions = {
+                enableSorting: true,
+                enableColumnMenus: false,
+                columnDefs: [
+                    {field: 'firstName', displayName: 'First Name', minWidth: 100, width: 200, enableColumnResizing: false},
+                    {field: 'lastName', displayName: 'Last Name', width: '30%', maxWidth: 200, minWidth: 70}
+                ],
+                data: myData
+            };
         })
         .factory('UserDetailService', function ($window) {
 

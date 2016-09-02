@@ -9,7 +9,8 @@ angular.module('app',
             'app.user.login',
             'app.home',
             'app.user.menu.service',
-            'ngCookies'
+            'ngCookies',
+            'ui.grid'
         ])
         .factory('TokenService', function ($cookies) {
 
@@ -79,7 +80,7 @@ angular.module('app',
 function addmenus(appCtrl, UserDetailService) {
     appCtrl.menus = [{state: 'app.home', description: 'Home'}];
     if (UserDetailService.hasRole('ADMIN')) {
-        appCtrl.menus.push({state: 'app.home', description: 'Register User'});
+        appCtrl.menus.push({state: 'app.user', description: 'Register User'});
         appCtrl.menus.push({state: 'app.home', description: 'Create Group'});
     }
 }
