@@ -5,7 +5,7 @@ angular.module('app.user', [])
                     .state('app.user', {
                         url: '/user',
                         data: {
-                            secure: false
+                            secure: true
                         },
                         views: {
                             'main@': {
@@ -13,9 +13,21 @@ angular.module('app.user', [])
                                 templateUrl: 'user/user.html'
                             }
                         }
+                    })
+                    .state('app.user.add', {
+                        url: '/user/add',
+                        data: {
+                            secure: true
+                        },
+                        views: {
+                            'main@': {
+                                controller: 'UserAddController as userAddCtrl',
+                                templateUrl: 'user/add/userAdd.html'
+                            }
+                        }
                     });
         })
-        .controller('UserController', function () {
+        .controller('UserController', function ($state) {
 
             var userCtrl = this;
             var myData = [
@@ -41,6 +53,16 @@ angular.module('app.user', [])
                     {field: 'lastName', displayName: 'Last Name', width: '50%'}
                 ],
                 data: myData
+            };
+
+            userCtrl.add = function () {
+                $state.go('app.user.add');
+            };
+        })
+        .controller('UserAddController', function ($state) {
+            var userAddCtrl = this;
+            userAddCtrl.add = function (newUser) {
+                console.log(newUser);
             };
         })
         .factory('UserDetailService', function ($window) {
