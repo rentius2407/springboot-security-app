@@ -37,8 +37,8 @@ angular.module('app.user', [])
                 enableSorting: true,
                 enableColumnMenus: false,
                 columnDefs: [
-                    {field: 'firstName', displayName: 'First Name', minWidth: 100, width: 200, enableColumnResizing: false},
-                    {field: 'lastName', displayName: 'Last Name', width: '30%', maxWidth: 200, minWidth: 70}
+                    {field: 'firstName', displayName: 'First Name', width: '50%'},
+                    {field: 'lastName', displayName: 'Last Name', width: '50%'}
                 ],
                 data: myData
             };
