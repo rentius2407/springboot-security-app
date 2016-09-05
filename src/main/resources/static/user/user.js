@@ -27,7 +27,7 @@ angular.module('app.user', [])
                         }
                     });
         })
-        .controller('UserController', function ($state) {
+        .controller('UserController', function ($state, $scope) {
 
             var userCtrl = this;
             var myData = [
@@ -50,8 +50,9 @@ angular.module('app.user', [])
                 enableColumnMenus: false,
                 enableHorizontalScrollbar: 0,
                 enableVerticalScrollbar: 0,
-                onRegisterApi: function (api) {
-                    console.log(api);
+                onRegisterApi: function (gridApi ) {
+                    $scope.gridApi = gridApi; 
+                    console.log(gridApi);
                     var newHeight = (myData.length + 1) * 30;
                     angular.element(document.getElementsByClassName('grid')[0]).css('height', newHeight + 'px');
                 },
