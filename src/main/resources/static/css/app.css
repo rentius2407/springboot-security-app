@@ -404,3 +404,7 @@ table.dataTable thead .sorting:after {
     margin-top: 23px;
     margin-bottom: 10px;
 }
+
+.grid {
+    height: 60px;
+}

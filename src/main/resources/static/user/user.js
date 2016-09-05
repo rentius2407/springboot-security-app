@@ -48,6 +48,13 @@ angular.module('app.user', [])
             userCtrl.gridOptions = {
                 enableSorting: true,
                 enableColumnMenus: false,
+                enableHorizontalScrollbar: 0,
+                enableVerticalScrollbar: 0,
+                onRegisterApi: function (api) {
+                    console.log(api);
+                    var newHeight = (myData.length + 1) * 30;
+                    angular.element(document.getElementsByClassName('grid')[0]).css('height', newHeight + 'px');
+                },
                 columnDefs: [
                     {field: 'firstName', displayName: 'First Name', width: '50%'},
                     {field: 'lastName', displayName: 'Last Name', width: '50%'}
