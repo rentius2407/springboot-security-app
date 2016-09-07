@@ -32,8 +32,8 @@ angular.module('app.user', [])
             var userCtrl = this;
             var myData = [
                 {
-                    "firstName": "Cox",
-                    "lastName": "Carney"
+                    "firstName": "Rentius",
+                    "lastName": "Engelbrecht"
                 },
                 {
                     "firstName": "Lorraine",

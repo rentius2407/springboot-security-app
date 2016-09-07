@@ -407,4 +407,20 @@ table.dataTable thead .sorting:after {
 
 .grid {
     height: 60px;
+    width: 100%;
+}
+
+@media (max-width: 766px) {
+    .grid-row-md {
+        margin-top: 5px;
+        margin-left: 1px;
+        margin-right: 1px;        
+    }
+}
+@media (min-width: 426px) {
+    .grid-row-lg {
+        margin-top: 5px;
+        margin-left: 1px;
+        margin-right: 1px;
+    }
 }
