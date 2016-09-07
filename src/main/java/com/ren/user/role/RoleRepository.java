@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ren.user;
+package com.ren.user.role;
 
 import com.ren.db.SingleResultNull;
 import javax.persistence.EntityManager;
@@ -19,20 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class UserRepository {
-
+public class RoleRepository {
+    
     @PersistenceContext
     private EntityManager entityManager;
 
-    public User findByUsername(String username) {
-        TypedQuery<User> query = entityManager.createQuery(User.FIND_BY_USERNAME.QUERY, User.class);
-        query.setParameter(User.FIND_BY_USERNAME.PARAM_EMAIL, username.toUpperCase());
+    public Role findByName(String name) {
+        TypedQuery<Role> query = entityManager.createQuery(Role.FIND_BY_NAME.QUERY, Role.class);
+        query.setParameter(Role.FIND_BY_NAME.PARAM_NAME, name);
 
         return new SingleResultNull<>(query).get();
-    }
-
-    public User create(User user) {
-        entityManager.persist(user);
-        return user;
-    }
+    }    
+    
 }

@@ -54,5 +54,11 @@ public class Role implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public static class FIND_BY_NAME {
+
+        public final static String PARAM_NAME = "name";
+        public final static String QUERY = "select r from Role r where r.name = :" + PARAM_NAME;
+    }    
 
 }

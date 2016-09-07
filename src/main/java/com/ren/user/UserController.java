@@ -6,6 +6,7 @@
 package com.ren.user;
 
 import com.ren.api.MappingApi;
+import com.ren.user.create.NewUser;
 import com.ren.user.role.Role;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,10 +42,18 @@ public class UserController {
 
     @RequestMapping(value = MappingApi.REGISTER, method = RequestMethod.POST)
     public ResponseEntity<String> register() {
-
         userService.register();
-
         return new ResponseEntity<>("Working", HttpStatus.OK);
     }
+    
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<UserDetail> create(@RequestBody NewUser newUser) {
+        User user = userService.create(newUser);
+        
+        UserDetail userDetail = UserDetail.from(user);
+        return new ResponseEntity<>(userDetail, HttpStatus.OK);
+    }
+    
 
 }
