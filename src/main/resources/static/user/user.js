@@ -74,6 +74,7 @@ angular.module('app.user', [])
             
             GroupService.findAll().then(function (result) {
                 console.log(result);
+                userAddCtrl.groups = result.data;
             });
     
             userAddCtrl.add = function (newUser) {
