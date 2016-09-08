@@ -8,6 +8,7 @@ angular.module('app',
             'app.user',
             'app.user.login',
             'app.home',
+            'app.group',
             'app.user.menu.service',
             'ngCookies',
             'ui.grid'

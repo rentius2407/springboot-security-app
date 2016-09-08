@@ -67,8 +67,15 @@ angular.module('app.user', [])
                 $state.go('app.user.add');
             };
         })
-        .controller('UserAddController', function ($state) {
+        .controller('UserAddController', function ($state, GroupService) {
             var userAddCtrl = this;
+    
+            console.log(GroupService);
+            
+            GroupService.findAll().then(function (result) {
+                console.log(result);
+            });
+    
             userAddCtrl.add = function (newUser) {
                 console.log(newUser);
             };

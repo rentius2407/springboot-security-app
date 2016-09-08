@@ -84,4 +84,8 @@ public class Group implements Serializable {
         this.options = options;
     }
 
+    public static class FIND_ALL {
+        public static final String QUERY = "select g from Group g";
+    }
+
 }

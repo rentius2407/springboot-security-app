@@ -5,6 +5,7 @@
  */
 package com.ren.user.group;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,10 @@ public class GroupRepository {
 
     public Group findById(Long id) {
         return entityManager.find(Group.class, id);
+    }
+
+    public List<Group> findAll() {
+        return entityManager.createQuery(Group.FIND_ALL.QUERY, Group.class)
+                .getResultList();
     }
 }
