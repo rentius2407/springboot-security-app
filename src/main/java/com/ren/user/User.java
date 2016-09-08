@@ -130,5 +130,10 @@ public class User implements Serializable {
         public final static String PARAM_EMAIL = "email";
         public final static String QUERY = "select u from User u where upper(u.email) = :" + PARAM_EMAIL;
     }
+    
+
+    public static class FIND_ALL {
+        public static final String QUERY = "select u from User u";
+    }    
 
 }

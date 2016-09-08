@@ -12,6 +12,7 @@ import com.ren.user.group.Group;
 import com.ren.user.group.GroupService;
 import com.ren.user.role.Role;
 import com.ren.user.role.RoleService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,25 +70,30 @@ public class UserService {
 
     @Transactional
     public User create(NewUser newUser) {
-        
+
         User user = new User();
         user.setFirstName(newUser.getFirstName());
         user.setLastName(newUser.getLastName());
-        
+
         String email = newUser.getEmail();
         user.setEmail(email);
-        
+
         String encodedPassword = passwordEncoder.encode(DEFAULT_PASSWORD_APPEND + email);
         user.setPassword(encodedPassword);
-        
+
         Group group = groupService.findById(newUser.getGroupId());
         user.setGroup(group);
-        
+
         Role role = roleService.findByUsername("USER");
         user.setRole(role);
-        
+
         user = userRepository.create(user);
         return user;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
 }

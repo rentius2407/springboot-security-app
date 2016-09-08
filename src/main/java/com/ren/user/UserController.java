@@ -35,28 +35,23 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UserDetail> create(@RequestBody NewUser newUser) {
         User user = userService.create(newUser);
-        
+
         UserDetail userDetail = UserDetail.from(user);
         return new ResponseEntity<>(userDetail, HttpStatus.OK);
     }
-    
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<UserDetail>> findAll() {
-        
+
         List<UserDetail> userDetails = new ArrayList<>();
         
-        
-        UserDetail userDetail = new UserDetail();
-        userDetail.setId(1L);
-        userDetail.setFirstName("Rentius");
-        userDetail.setLastName("Engelbrecht");
-        userDetail.setGroupId(1L);
-        userDetail.setRole("USER");
-        userDetails.add(userDetail);
+        List<User> users = userService.findAll();
+        users.stream().forEach((user) -> {
+            userDetails.add(UserDetail.from(user));
+        });
         
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
-    
 
 }
