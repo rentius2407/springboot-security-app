@@ -8,6 +8,7 @@ package com.ren.user;
 import com.ren.api.MappingApi;
 import com.ren.user.create.NewUser;
 import com.ren.user.role.Role;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,28 +32,30 @@ public class UserController {
     UserService userService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(method = RequestMethod.GET)
-    public List<User> get() {
-        User user = new User();
-        user.setEmail("Rentius@gmail.com");
-        user.setRole(new Role("ADMIN"));
-
-        return Arrays.asList(user);
-    }
-
-    @RequestMapping(value = MappingApi.REGISTER, method = RequestMethod.POST)
-    public ResponseEntity<String> register() {
-        userService.register();
-        return new ResponseEntity<>("Working", HttpStatus.OK);
-    }
-    
-    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<UserDetail> create(@RequestBody NewUser newUser) {
         User user = userService.create(newUser);
         
         UserDetail userDetail = UserDetail.from(user);
         return new ResponseEntity<>(userDetail, HttpStatus.OK);
+    }
+    
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<UserDetail>> findAll() {
+        
+        List<UserDetail> userDetails = new ArrayList<>();
+        
+        
+        UserDetail userDetail = new UserDetail();
+        userDetail.setId(1L);
+        userDetail.setFirstName("Rentius");
+        userDetail.setLastName("Engelbrecht");
+        userDetail.setGroupId(1L);
+        userDetail.setRole("USER");
+        userDetails.add(userDetail);
+        
+        return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
     
 

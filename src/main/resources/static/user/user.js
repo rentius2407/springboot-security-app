@@ -7,6 +7,11 @@ angular.module('app.user', [])
                         data: {
                             secure: true
                         },
+                        resolve: {
+                            users: ['UserService', function (UserService) {
+                                    return UserService.findAll();
+                                }]
+                        },
                         views: {
                             'main@': {
                                 controller: 'UserController as userCtrl',
@@ -23,7 +28,7 @@ angular.module('app.user', [])
                             groups: ['GroupService', function (GroupService) {
                                     return GroupService.findAll();
                                 }]
-                        },                        
+                        },
                         views: {
                             'main@': {
                                 controller: 'UserAddController as userAddCtrl',
@@ -32,7 +37,7 @@ angular.module('app.user', [])
                         }
                     });
         })
-        .controller('UserController', function ($state, $scope) {
+        .controller('UserController', function ($state, $scope, users) {
 
             var userCtrl = this;
             var myData = [
@@ -55,8 +60,8 @@ angular.module('app.user', [])
                 enableColumnMenus: false,
                 enableHorizontalScrollbar: 0,
                 enableVerticalScrollbar: 0,
-                onRegisterApi: function (gridApi ) {
-                    $scope.gridApi = gridApi; 
+                onRegisterApi: function (gridApi) {
+                    $scope.gridApi = gridApi;
                     var newHeight = (myData.length + 1) * 30;
                     angular.element(document.getElementsByClassName('grid')[0]).css('height', newHeight + 'px');
                 },
@@ -64,7 +69,7 @@ angular.module('app.user', [])
                     {field: 'firstName', displayName: 'First Name', width: '50%'},
                     {field: 'lastName', displayName: 'Last Name', width: '50%'}
                 ],
-                data: myData
+                data: users.data
             };
 
             userCtrl.add = function () {
@@ -74,12 +79,12 @@ angular.module('app.user', [])
         .controller('UserAddController', function ($state, groups, UserService) {
             var userAddCtrl = this;
             userAddCtrl.groups = groups.data;
-            
+
             userAddCtrl.add = function (newUser) {
                 UserService.create(newUser).then(function (result) {
                     $state.go('app.user');
                 });
-                
+
             };
         })
         .factory('UserDetailService', function ($window) {
@@ -112,6 +117,9 @@ angular.module('app.user', [])
             return {
                 create: function (newUser) {
                     return $http.post('/api/user/', newUser);
+                },
+                findAll: function () {
+                    return $http.get('/api/user');
                 }
             };
         });
