@@ -62,7 +62,7 @@ angular.module('app.user', [])
                 enableVerticalScrollbar: 0,
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
-                    var newHeight = (myData.length + 1) * 30;
+                    var newHeight = (users.data.length + 1) * 30;
                     angular.element(document.getElementsByClassName('grid')[0]).css('height', newHeight + 'px');
                 },
                 columnDefs: [
