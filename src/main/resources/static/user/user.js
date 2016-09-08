@@ -19,6 +19,11 @@ angular.module('app.user', [])
                         data: {
                             secure: true
                         },
+                        resolve: {
+                            groups: ['GroupService', function (GroupService) {
+                                    return GroupService.findAll();
+                                }]
+                        },                        
                         views: {
                             'main@': {
                                 controller: 'UserAddController as userAddCtrl',
@@ -52,7 +57,6 @@ angular.module('app.user', [])
                 enableVerticalScrollbar: 0,
                 onRegisterApi: function (gridApi ) {
                     $scope.gridApi = gridApi; 
-                    console.log(gridApi);
                     var newHeight = (myData.length + 1) * 30;
                     angular.element(document.getElementsByClassName('grid')[0]).css('height', newHeight + 'px');
                 },
@@ -67,18 +71,15 @@ angular.module('app.user', [])
                 $state.go('app.user.add');
             };
         })
-        .controller('UserAddController', function ($state, GroupService) {
+        .controller('UserAddController', function ($state, groups, UserService) {
             var userAddCtrl = this;
-    
-            console.log(GroupService);
+            userAddCtrl.groups = groups.data;
             
-            GroupService.findAll().then(function (result) {
-                console.log(result);
-                userAddCtrl.groups = result.data;
-            });
-    
             userAddCtrl.add = function (newUser) {
-                console.log(newUser);
+                UserService.create(newUser).then(function (result) {
+                    $state.go('app.user');
+                });
+                
             };
         })
         .factory('UserDetailService', function ($window) {
@@ -104,6 +105,13 @@ angular.module('app.user', [])
                     var data = $window.localStorage.getItem(KEY_CONST);
                     var dataObject = angular.fromJson(data);
                     return dataObject && dataObject.role && dataObject.role === role;
+                }
+            };
+        })
+        .factory('UserService', function ($http) {
+            return {
+                create: function (newUser) {
+                    return $http.post('/api/user/', newUser);
                 }
             };
         });

@@ -77,7 +77,7 @@ public class UserService {
         String email = newUser.getEmail();
         user.setEmail(email);
         
-        String encodedPassword = passwordEncoder.encode(email + DEFAULT_PASSWORD_APPEND);
+        String encodedPassword = passwordEncoder.encode(DEFAULT_PASSWORD_APPEND + email);
         user.setPassword(encodedPassword);
         
         Group group = groupService.findById(newUser.getGroupId());

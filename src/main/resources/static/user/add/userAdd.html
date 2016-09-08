@@ -28,7 +28,7 @@
     <div class="form-group col-lg-12 col-md-12 col-sm-12" ng-class="{ 'has-error': userAddForm.group.$invalid }">
         <label for="group" class="col-lg-2 col-md-2 col-sm-12 control-label">Group*</label>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <select class="form-control" ng-model="userAddCtrl.user.group" id="group" name="group" required ng-options="group.id as group.name for group in userAddCtrl.groups"><option></option></select>
+            <select class="form-control" ng-model="userAddCtrl.user.groupId" id="group" name="group" required ng-options="group.id as group.name for group in userAddCtrl.groups"><option></option></select>
         </div>
     </div> 
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
