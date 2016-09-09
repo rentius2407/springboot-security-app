@@ -40,21 +40,6 @@ angular.module('app.user', [])
         .controller('UserController', function ($state, $scope, users) {
 
             var userCtrl = this;
-            var myData = [
-                {
-                    "firstName": "Rentius",
-                    "lastName": "Engelbrecht"
-                },
-                {
-                    "firstName": "Lorraine",
-                    "lastName": "Wise"
-                },
-                {
-                    "firstName": "Nancy",
-                    "lastName": "Waters"
-                }
-            ];
-
             userCtrl.gridOptions = {
                 enableSorting: true,
                 enableColumnMenus: false,
