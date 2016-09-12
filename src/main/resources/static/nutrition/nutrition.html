@@ -17,9 +17,12 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
                 <div class="col-xs-2">
                     <i class="glyphicon glyphicon-scale"></i>
                 </div>
-                <div class="col-xs-10">
+                <div class="col-xs-8">
                     <div class="huge">{{category.name}}</div>
                 </div>
+                <div class="col-xs-2">
+                    <a ui-sref="app.nutrition.category.assign({categoryId: {{category.id}}})">Assign</a>
+                </div>                
             </div>
         </div>
         <a ui-sref="app.nutrition.category({categoryId: {{category.id}}})">
