@@ -3,14 +3,14 @@ angular.module('app.nutrition.category.assign', [])
 
             $stateProvider
                     .state('app.nutrition.category.assign', {
-                        url: '/category/:categoryId',
+                        url: '/assign',
                         resolve: {
                             categoryId: ['$stateParams', function ($stateParams) {
                                     return $stateParams.categoryId;
+                                }],
+                            nutritionId: ['$stateParams', function ($stateParams) {
+                                    return $stateParams.id;
                                 }]
-//                            nutritionId: ['$stateParams', function ($stateParams) {
-//                                    return $stateParams.id;
-//                                }]
                         },
                         views: {
                             'main@': {
@@ -20,8 +20,12 @@ angular.module('app.nutrition.category.assign', [])
                         }
                     });
         })
-        .controller('AssignCategoryController', function (CategoryService, categoryId) {
+        .controller('AssignCategoryController', function (CategoryService, categoryId, $state, nutritionId) {
             var assignCatCtrl = this;
             console.log(categoryId);
+
+            assignCatCtrl.back = function () {
+                $state.go('app.nutrition', {id: nutritionId});
+            };
         });
 

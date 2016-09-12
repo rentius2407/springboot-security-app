@@ -416,6 +416,10 @@ table.dataTable thead .sorting:after {
         margin-left: 1px;
         margin-right: 1px;        
     }
+    .assign-select {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }    
 }
 @media (min-width: 426px) {
     .grid-row-lg {

@@ -5,21 +5,41 @@
             </i>
             Assign: 
         </h2>
+        <a type="button" class="btn btn-primary pull-right back-header-button" ng-click="assignCatCtrl.back()">Back</a>
     </div>
     <div class="page-break"></div>
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
         <label for="firstname" class="col-lg-2 col-md-2 col-sm-12 control-label">Group Search*</label>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-            <input class="form-control" ng-model="assignCatCtrl.groupName" type="text" id="firstname" name="firstname" required placeholder="Group"/><br />
+            <input class="form-control" ng-model="assignCatCtrl.groupName" type="text" id="firstname" name="firstname" placeholder="Group"/><br />
         </div>
     </div>     
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
             <select class="form-control" multiple>
                 <option>Mustard</option>
                 <option>Ketchup</option>
                 <option>Relish</option>
             </select>
         </div>
-    </div>     
+    </div>  
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-disabled="userAddForm.$invalid" ng-click="userAddCtrl.add(userAddCtrl.user)">Assign</button>
+        </div>    
+    </div>
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+            <select class="form-control" multiple>
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </select>
+        </div>
+    </div>  
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
+            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-disabled="userAddForm.$invalid" ng-click="userAddCtrl.add(userAddCtrl.user)">Remove</button>
+        </div>    
+    </div>
 </form>
