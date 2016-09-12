@@ -38,7 +38,7 @@ angular.module('app.user', [])
                     });
         })
         .controller('UserController', function ($state, $scope, users) {
-
+            
             var userCtrl = this;
             userCtrl.gridOptions = {
                 enableSorting: true,
@@ -67,7 +67,7 @@ angular.module('app.user', [])
 
             userAddCtrl.add = function (newUser) {
                 UserService.create(newUser).then(function (result) {
-                    $state.go('app.user');
+                    $state.transitionTo('app.user', null, {'reload':true});
                 });
 
             };
