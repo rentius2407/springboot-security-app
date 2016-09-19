@@ -26,7 +26,7 @@ angular.module('app.nutrition.category.assign', [])
 
             var fromMockGroups = [
                 {id: 1, name: 'GroupA'}, {id: 2, name: 'GroupB'}
-            ]
+            ];
 
             assignCatCtrl.fromGroups = fromMockGroups;
             assignCatCtrl.toGroups = [];
@@ -39,7 +39,13 @@ angular.module('app.nutrition.category.assign', [])
                 });
 
             };
-
+            assignCatCtrl.remove = function (selectedToGroups) {
+                angular.forEach(selectedToGroups, function (group) {
+                    var index = assignCatCtrl.toGroups.indexOf(group);
+                    assignCatCtrl.toGroups.splice(index, 1);
+                    assignCatCtrl.fromGroups.push(group);
+                });
+            };
 
             assignCatCtrl.back = function () {
                 $state.go('app.nutrition', {id: nutritionId});

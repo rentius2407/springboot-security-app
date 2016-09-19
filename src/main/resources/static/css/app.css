@@ -410,6 +410,10 @@ table.dataTable thead .sorting:after {
     width: 100%;
 }
 
+.assign-hyperlink {
+    padding-bottom: 100px;
+}
+
 @media (max-width: 766px) {
     .grid-row-md {
         margin-top: 5px;
