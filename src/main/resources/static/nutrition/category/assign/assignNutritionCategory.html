@@ -15,31 +15,27 @@
         </div>
     </div>     
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
-            <select class="form-control" multiple>
-                <option>Mustard</option>
-                <option>Ketchup</option>
-                <option>Relish</option>
+        <label for="fromGroup" class="col-lg-2 col-md-2 col-sm-12 control-label">From Group</label>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <select class="form-control" multiple ng-model="assignCatCtrl.selectedFromGroups" id="fromGroup" name="fromGroup" ng-options="group.name for group in assignCatCtrl.fromGroups">
             </select>
         </div>
     </div>  
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
-            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-disabled="userAddForm.$invalid" ng-click="userAddCtrl.add(userAddCtrl.user)">Assign</button>
+            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-click="assignCatCtrl.assign(assignCatCtrl.selectedFromGroups)">Assign</button>
         </div>    
     </div>
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
-        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
-            <select class="form-control" multiple>
-                <option>Mustard</option>
-                <option>Ketchup</option>
-                <option>Relish</option>
+        <label for="toGroup" class="col-lg-2 col-md-2 col-sm-12 control-label">To Group</label>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <select class="form-control" multiple ng-model="assignCatCtrl.selectedToGroups" id="toGroup" name="toGroup" ng-options="group.id as group.name for group in assignCatCtrl.toGroups">
             </select>
         </div>
     </div>  
     <div class="form-group col-lg-12 col-md-12 col-sm-12">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-lg-offset-2 col-md-offset-2">
-            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-disabled="userAddForm.$invalid" ng-click="userAddCtrl.add(userAddCtrl.user)">Remove</button>
+            <button class="btn btn-primary col-lg-3 col-md-6 col-sm-6 col-xs-6 assign-select" ng-click="userAddCtrl.add(userAddCtrl.user)">Remove</button>
         </div>    
     </div>
 </form>
