@@ -7,6 +7,7 @@ package com.ren.category;
 
 import com.ren.category.option.Option;
 import com.ren.db.SingleResultNull;
+import com.ren.user.group.Group;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -62,9 +63,15 @@ public class CategoryRepository {
         TypedQuery<Option> query = entityManager.createQuery(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.QUERY, Option.class)
                 .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_CATEGORY_ID, categoryId)
                 .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_GROUP_ID, groupId);
-        
+
         return query.getResultList();
-        
+
+    }
+
+    public List<Group> assignedGroups(long id) {
+        return entityManager.createQuery(Category.FIND_ASSIGNED_GROUPS.QUERY, Group.class)
+                .setParameter(Category.FIND_ASSIGNED_GROUPS.PARAM_CATEGORY_ID, id)
+                .getResultList();
     }
 
 }

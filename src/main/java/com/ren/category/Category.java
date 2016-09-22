@@ -126,5 +126,10 @@ public class Category implements Serializable {
         public final static String PARAM_ID = "id";
         public final static String QUERY = "select c from Category c LEFT JOIN FETCH c.options where c.id = :" + PARAM_ID;
     }
+    
+    public static class FIND_ASSIGNED_GROUPS {
+        public static final String PARAM_CATEGORY_ID = "id";
+        public static final String QUERY = "select g from Groups g JOIN g.options o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
+    }    
 
 }

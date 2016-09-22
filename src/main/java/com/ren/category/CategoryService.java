@@ -8,6 +8,8 @@ package com.ren.category;
 import com.ren.category.option.Option;
 import com.ren.category.option.event.OptionCreateEvent;
 import com.ren.category.option.event.OptionUpdateEvent;
+import com.ren.user.group.Group;
+import com.ren.user.group.GroupService;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRespository;
+    @Autowired
+    private GroupService groupService;
 
     @Transactional(readOnly = true)
     public List<Category> findRootCategories() {
@@ -38,24 +42,24 @@ public class CategoryService {
     public Category findCategoryById(Long id) {
         return categoryRespository.findById(id);
     }
-    
+
     @Transactional
     public Set<Option> create(OptionCreateEvent optionCreateEvent) {
-        
+
         Category category = findCategoryById(optionCreateEvent.getCategoryId());
         category.add(optionCreateEvent.getOption());
         category = categoryRespository.update(category);
-        
+
         return category.getOptions();
     }
-    
+
     @Transactional
     public Set<Option> update(OptionUpdateEvent optionUpdateEvent) {
-        
+
         Category category = findCategoryWithOptions(optionUpdateEvent.getCategoryId());
         category.update(optionUpdateEvent.getOption());
         category = categoryRespository.update(category);
-        
+
         return category.getOptions();
     }
 
@@ -63,7 +67,7 @@ public class CategoryService {
     public List<Option> findOptionsForCategory(Long categoryId) {
         return categoryRespository.findOptionsForCategory(categoryId);
     }
-    
+
     @Transactional(readOnly = true)
     public Category findCategoryWithOptions(Long categoryId) {
         return categoryRespository.findWithOptions(categoryId);
@@ -73,5 +77,10 @@ public class CategoryService {
     public List<Option> findOptionByCategoryAndGroup(Long categoryId, Long groupId) {
         return categoryRespository.findOptionsByCategoryAndGroup(categoryId, groupId);
     }
-    
+
+    @Transactional(readOnly = true)
+    public List<Group> assignedGroups(long categoryId) {
+        return categoryRespository.assignedGroups(categoryId);
+    }
+
 }

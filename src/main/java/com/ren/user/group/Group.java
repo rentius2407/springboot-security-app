@@ -87,5 +87,5 @@ public class Group implements Serializable {
     public static class FIND_ALL {
         public static final String QUERY = "select g from Group g";
     }
-
+    
 }

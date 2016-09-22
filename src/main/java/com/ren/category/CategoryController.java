@@ -9,6 +9,7 @@ import com.ren.api.MappingApi;
 import com.ren.category.option.Option;
 import com.ren.category.option.event.OptionCreateEvent;
 import com.ren.category.option.event.OptionUpdateEvent;
+import com.ren.user.group.Group;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,14 +85,19 @@ public class CategoryController {
         Set<Option> options = categoryService.update(new OptionUpdateEvent(categoryId, option));
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
-    
+
     @PreAuthorize("hasAuthority('USER')")
     @RequestMapping(value = "/{categoryId}/group/{groupId}/option", method = RequestMethod.GET)
     public ResponseEntity<List<Option>> findOptionByCategoryAndGroup(@PathVariable("categoryId") Long categoryId, @PathVariable("groupId") Long groupId) {
-        
+
         List<Option> options = categoryService.findOptionByCategoryAndGroup(categoryId, groupId);
         return new ResponseEntity<>(options, HttpStatus.OK);
     }
-    
-    
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/{categoryId}/group", method = RequestMethod.GET)
+    public ResponseEntity<List<Group>> assignedGroup(@PathVariable("categoryId") Long categoryId) {
+        List<Group> options = categoryService.assignedGroups(categoryId);
+        return new ResponseEntity<>(options, HttpStatus.OK);
+    }
 }

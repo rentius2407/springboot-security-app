@@ -23,6 +23,10 @@ angular.module('app.nutrition.category.assign', [])
         .controller('AssignCategoryController', function (CategoryService, categoryId, $state, nutritionId) {
             var assignCatCtrl = this;
             console.log(categoryId);
+            
+            CategoryService.assignedGroups(categoryId).then(function (result) {
+                console.log(result);
+            });
 
             var fromMockGroups = [
                 {id: 1, name: 'GroupA'}, {id: 2, name: 'GroupB'}
