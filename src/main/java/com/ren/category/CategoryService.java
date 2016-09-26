@@ -101,4 +101,13 @@ public class CategoryService {
 
         groupService.update(group);
     }
+
+    @Transactional
+    public void deleteGroup(Long categoryId, Long groupId) {
+        List<Option> options = findOptionsForCategory(categoryId);
+        Group group = groupService.findById(groupId);
+        group.remove(options);
+        groupService.update(group);
+        
+    }
 }

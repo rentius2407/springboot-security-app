@@ -30,6 +30,9 @@ angular.module('app.category', [])
                 },
                 assignGroup: function (categoryId, groupId) {
                     return $http.post('/api/category/' + categoryId + '/group/' + groupId);
+                },
+                removeGroup: function (categoryId, groupId) {
+                    return $http.delete('/api/category/' + categoryId + '/group/' + groupId);
                 }
             };
         });

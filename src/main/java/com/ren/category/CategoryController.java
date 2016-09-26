@@ -107,4 +107,11 @@ public class CategoryController {
         categoryService.assignGroup(categoryId, groupId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/{categoryId}/group/{groupId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteGroup(@PathVariable("categoryId") Long categoryId, @PathVariable("groupId") Long groupId) {
+        categoryService.deleteGroup(categoryId, groupId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
