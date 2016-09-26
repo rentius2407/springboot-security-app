@@ -28,4 +28,8 @@ public class OptionCreateEvent {
     public Option getOption() {
         return option;
     }
+    
+    public String getOptionName() {
+        return this.option.getName();
+    }
 }

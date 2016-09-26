@@ -34,12 +34,17 @@ angular.module('app.nutrition.category.assign', [])
             });
 
             assignCatCtrl.assign = function (selectedFromGroups) {
+                console.log('assign');
                 angular.forEach(selectedFromGroups, function (group) {
-                    var index = assignCatCtrl.fromGroups.indexOf(group);
-                    assignCatCtrl.fromGroups.splice(index, 1);
-                    assignCatCtrl.toGroups.push(group);
+                    console.log('group = ');
+                    console.log(group);
+                    CategoryService.assignGroup(categoryId, group.id).then(function (result) {
+                        console.log(result);
+                        var index = assignCatCtrl.fromGroups.indexOf(group);
+                        assignCatCtrl.fromGroups.splice(index, 1);
+                        assignCatCtrl.toGroups.push(group);
+                    });
                 });
-
             };
             assignCatCtrl.remove = function (selectedToGroups) {
                 angular.forEach(selectedToGroups, function (group) {

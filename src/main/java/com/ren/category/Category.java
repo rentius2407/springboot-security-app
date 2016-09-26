@@ -98,7 +98,7 @@ public class Category implements Serializable {
     }
 
     public void update(Option option) {
-       getOption(option.getId()).updateWith(option);
+        getOption(option.getId()).updateWith(option);
     }
 
     public Option getOption(Long optionId) {
@@ -108,6 +108,16 @@ public class Category implements Serializable {
             }
         }
         throw new IllegalArgumentException("Option with id not found: " + optionId);
+    }
+
+    public Option findOptionByName(String optionName) {
+        for (Option option : options) {
+            if (optionName.equals(option.getName())) {
+                return option;
+            }
+        }
+
+        return null;
     }
 
     public static class FIND_ALL_ROOT {
@@ -126,10 +136,11 @@ public class Category implements Serializable {
         public final static String PARAM_ID = "id";
         public final static String QUERY = "select c from Category c LEFT JOIN FETCH c.options where c.id = :" + PARAM_ID;
     }
-    
+
     public static class FIND_ASSIGNED_GROUPS {
+
         public static final String PARAM_CATEGORY_ID = "id";
-        public static final String QUERY = "select g from Group g JOIN g.options o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
-    }    
+        public static final String QUERY = "select DISTINCT g from Group g JOIN g.options o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
+    }
 
 }

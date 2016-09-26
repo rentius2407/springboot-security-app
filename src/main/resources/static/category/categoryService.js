@@ -27,6 +27,9 @@ angular.module('app.category', [])
                 },
                 assignedGroups: function (categoryId) {
                     return $http.get('/api/category/' + categoryId + '/group');
+                },
+                assignGroup: function (categoryId, groupId) {
+                    return $http.post('/api/category/' + categoryId + '/group/' + groupId);
                 }
             };
         });

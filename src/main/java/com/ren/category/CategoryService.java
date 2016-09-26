@@ -50,6 +50,13 @@ public class CategoryService {
         category.add(optionCreateEvent.getOption());
         category = categoryRespository.update(category);
 
+        List<Group> assignedGroups = assignedGroups(category.getId());
+        Option addedOption = category.findOptionByName(optionCreateEvent.getOptionName());
+        for (Group group : assignedGroups) {
+            group.add(addedOption);
+            groupService.update(group);
+        }
+
         return category.getOptions();
     }
 
@@ -83,4 +90,15 @@ public class CategoryService {
         return categoryRespository.assignedGroups(categoryId);
     }
 
+    @Transactional
+    public void assignGroup(Long categoryId, Long groupId) {
+
+        List<Option> options = findOptionsForCategory(categoryId);
+        Group group = groupService.findById(groupId);
+        for (Option option : options) {
+            group.add(option);
+        }
+
+        groupService.update(group);
+    }
 }

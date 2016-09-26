@@ -5,6 +5,7 @@
  */
 package com.ren.user.group;
 
+import com.ren.category.option.Option;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,5 +31,15 @@ public class GroupRepository {
     public List<Group> findAll() {
         return entityManager.createQuery(Group.FIND_ALL.QUERY, Group.class)
                 .getResultList();
+    }
+
+    public List<Option> findOptionByGroupId(Long groupId) {
+        return entityManager.createQuery(Option.FIND_BY_GROUP_ID.QUERY, Option.class)
+                .setParameter(Option.FIND_BY_GROUP_ID.PARAM_GROUP_ID, groupId)
+                .getResultList();
+    }
+
+    public Group update(Group group) {
+        return entityManager.merge(group);
     }
 }

@@ -125,6 +125,11 @@ public class Option implements Serializable {
         public final static String PARAM_CATEGORY_ID = "id";
         public final static String QUERY = "select o from Option o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
     }
+    public static class FIND_BY_GROUP_ID {
+
+        public final static String PARAM_GROUP_ID = "id";
+        public final static String QUERY = "select o from Option o JOIN o.groups g where g.id = :" + PARAM_GROUP_ID;
+    }
 
     public static class FIND_BY_CATEGORY_ID_AND_GROUP_ID {
 

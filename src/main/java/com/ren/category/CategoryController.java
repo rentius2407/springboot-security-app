@@ -97,7 +97,14 @@ public class CategoryController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/{categoryId}/group", method = RequestMethod.GET)
     public ResponseEntity<List<Group>> assignedGroup(@PathVariable("categoryId") Long categoryId) {
-        List<Group> options = categoryService.assignedGroups(categoryId);
-        return new ResponseEntity<>(options, HttpStatus.OK);
+        List<Group> groups = categoryService.assignedGroups(categoryId);
+        return new ResponseEntity<>(groups, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @RequestMapping(value = "/{categoryId}/group/{groupId}", method = RequestMethod.POST)
+    public ResponseEntity assignGroup(@PathVariable("categoryId") Long categoryId, @PathVariable("groupId") Long groupId) {
+        categoryService.assignGroup(categoryId, groupId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
