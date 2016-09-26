@@ -129,7 +129,7 @@ public class Category implements Serializable {
     
     public static class FIND_ASSIGNED_GROUPS {
         public static final String PARAM_CATEGORY_ID = "id";
-        public static final String QUERY = "select g from Groups g JOIN g.options o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
+        public static final String QUERY = "select g from Group g JOIN g.options o JOIN o.category c where c.id = :" + PARAM_CATEGORY_ID;
     }    
 
 }

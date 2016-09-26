@@ -20,20 +20,18 @@ angular.module('app.nutrition.category.assign', [])
                         }
                     });
         })
-        .controller('AssignCategoryController', function (CategoryService, categoryId, $state, nutritionId) {
+        .controller('AssignCategoryController', function (CategoryService, GroupService, categoryId, $state, nutritionId) {
             var assignCatCtrl = this;
-            console.log(categoryId);
-            
-            CategoryService.assignedGroups(categoryId).then(function (result) {
-                console.log(result);
+            GroupService.findAll().then(function (result) {
+                assignCatCtrl.fromGroups = result.data;
+                CategoryService.assignedGroups(categoryId).then(function (result) {
+                    assignCatCtrl.toGroups = result.data;
+                    angular.forEach(assignCatCtrl.toGroups, function (toGroup) {
+                        var index = assignCatCtrl.fromGroups.indexOf(toGroup);
+                        assignCatCtrl.fromGroups.splice(index, 1);
+                    });
+                });
             });
-
-            var fromMockGroups = [
-                {id: 1, name: 'GroupA'}, {id: 2, name: 'GroupB'}
-            ];
-
-            assignCatCtrl.fromGroups = fromMockGroups;
-            assignCatCtrl.toGroups = [];
 
             assignCatCtrl.assign = function (selectedFromGroups) {
                 angular.forEach(selectedFromGroups, function (group) {
