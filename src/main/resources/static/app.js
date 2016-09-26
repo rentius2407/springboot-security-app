@@ -98,7 +98,7 @@ function interceptor($q, $injector, TokenService) {
             return result;
         },
         responseError: function (rejection) {
-            if (rejection.status === 401) {
+            if (rejection.status === 401 || rejection.status === 403) {
                 $injector.get('$state').transitionTo('app.login', null, {reload: true});
             }
             return $q.reject(rejection);

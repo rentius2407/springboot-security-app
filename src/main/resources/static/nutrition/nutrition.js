@@ -28,9 +28,11 @@ angular.module('app.nutrition', [])
                 nutritionCtrl.categories = result.data;
             });
 
+            nutritionCtrl.hideAssign = true;
             nutritionCtrl.detailsLabel = 'View Details';
             if (UserDetailService.hasRole('ADMIN')) {
                 nutritionCtrl.detailsLabel = 'Add Details';
+                nutritionCtrl.hideAssign = false;
             }
 
         })

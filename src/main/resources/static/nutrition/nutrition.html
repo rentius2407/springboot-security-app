@@ -14,7 +14,7 @@ if admin display adding  breakfast, mid morning snack, lunch, mid afternoon snac
     <div class="panel panel-primary">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+                <div ng-hide="nutritionCtrl.hideAssign" class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
                     <a ui-sref="app.nutrition.category.assign({categoryId: {{category.id}}})">Assign</a>
                 </div> 
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
