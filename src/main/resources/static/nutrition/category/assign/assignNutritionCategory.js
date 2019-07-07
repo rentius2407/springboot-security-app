@@ -20,30 +20,36 @@ angular.module('app.nutrition.category.assign', [])
                         }
                     });
         })
-        .controller('AssignCategoryController', function (CategoryService, categoryId, $state, nutritionId) {
+        .controller('AssignCategoryController', function (CategoryService, GroupService, categoryId, $state, nutritionId) {
             var assignCatCtrl = this;
-            console.log(categoryId);
-
-            var fromMockGroups = [
-                {id: 1, name: 'GroupA'}, {id: 2, name: 'GroupB'}
-            ];
-
-            assignCatCtrl.fromGroups = fromMockGroups;
-            assignCatCtrl.toGroups = [];
+            GroupService.findAll().then(function (result) {
+                assignCatCtrl.fromGroups = result.data;
+                CategoryService.assignedGroups(categoryId).then(function (result) {
+                    assignCatCtrl.toGroups = result.data;
+                    angular.forEach(assignCatCtrl.toGroups, function (toGroup) {
+                        var index = assignCatCtrl.fromGroups.indexOf(toGroup);
+                        assignCatCtrl.fromGroups.splice(index, 1);
+                    });
+                });
+            });
 
             assignCatCtrl.assign = function (selectedFromGroups) {
                 angular.forEach(selectedFromGroups, function (group) {
-                    var index = assignCatCtrl.fromGroups.indexOf(group);
-                    assignCatCtrl.fromGroups.splice(index, 1);
-                    assignCatCtrl.toGroups.push(group);
+                    CategoryService.assignGroup(categoryId, group.id).then(function (result) {
+                        console.log(result);
+                        var index = assignCatCtrl.fromGroups.indexOf(group);
+                        assignCatCtrl.fromGroups.splice(index, 1);
+                        assignCatCtrl.toGroups.push(group);
+                    });
                 });
-
             };
             assignCatCtrl.remove = function (selectedToGroups) {
                 angular.forEach(selectedToGroups, function (group) {
-                    var index = assignCatCtrl.toGroups.indexOf(group);
-                    assignCatCtrl.toGroups.splice(index, 1);
-                    assignCatCtrl.fromGroups.push(group);
+                    CategoryService.removeGroup(categoryId, group.id).then(function (result) {
+                        var index = assignCatCtrl.toGroups.indexOf(group);
+                        assignCatCtrl.toGroups.splice(index, 1);
+                        assignCatCtrl.fromGroups.push(group);
+                    });
                 });
             };
 

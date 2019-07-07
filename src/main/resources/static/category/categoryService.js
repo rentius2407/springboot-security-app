@@ -24,6 +24,15 @@ angular.module('app.category', [])
                 },
                 findOptionByCategoryAndGroup: function (categoryId, groupId) {
                     return $http.get('/api/category/' + categoryId + '/group/' + groupId + '/option');
+                },
+                assignedGroups: function (categoryId) {
+                    return $http.get('/api/category/' + categoryId + '/group');
+                },
+                assignGroup: function (categoryId, groupId) {
+                    return $http.post('/api/category/' + categoryId + '/group/' + groupId);
+                },
+                removeGroup: function (categoryId, groupId) {
+                    return $http.delete('/api/category/' + categoryId + '/group/' + groupId);
                 }
             };
         });

@@ -10,6 +10,7 @@ import com.ren.category.option.Option;
 import com.ren.user.User;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -84,7 +85,21 @@ public class Group implements Serializable {
         this.options = options;
     }
 
+    public void add(Option option) {
+        this.options.add(option);
+    }
+
+    public void remove(List<Option> options) {
+        for (Iterator<Option> iterator = getOptions().iterator(); iterator.hasNext();) {
+            Option nextOption = iterator.next();
+            if (options.contains(nextOption)) {
+                iterator.remove();
+            }
+        }
+    }
+
     public static class FIND_ALL {
+
         public static final String QUERY = "select g from Group g";
     }
 

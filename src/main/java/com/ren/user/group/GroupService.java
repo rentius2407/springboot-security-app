@@ -5,6 +5,7 @@
  */
 package com.ren.user.group;
 
+import com.ren.category.option.Option;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,15 @@ public class GroupService {
     @Transactional(readOnly = true)
     public List<Group> findAll() {
         return groupRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Option> findOptionByGroupId(Long groupId) {
+        return groupRepository.findOptionByGroupId(groupId);
+    }
+
+    public Group update(Group group) {
+        return groupRepository.update(group);
     }
 
 }
