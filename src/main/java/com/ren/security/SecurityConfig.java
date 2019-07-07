@@ -8,6 +8,7 @@ package com.ren.security;
 import com.ren.api.MappingApi;
 import com.ren.security.filter.AuthenticationFilter;
 import com.ren.security.provider.TokenAuthenticationProvider;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +24,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  *
@@ -38,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final String HTML_EXTENSION = "/**/**.html";
     private final String JS_EXTENSION = "/**/**.js";
     private final String FAVICON = "/favicon.ico";
-    
+
     private final RequestMatcher[] IGNORE_URLS = {
         new AntPathRequestMatcher(MappingApi.AUTH, "POST"),
         new AntPathRequestMatcher(MappingApi.USER + MappingApi.REGISTER, "POST")
@@ -54,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
+        http.cors().and()
                 .httpBasic().disable();
         http
                 .csrf().disable();
@@ -78,9 +82,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(MappingApi.ICONS + "/**", MappingApi.FONTS + "/**", MappingApi.CSS + "/**", MappingApi.JS + "/**", HTML_EXTENSION, FAVICON, JS_EXTENSION);
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        configuration.setAllowedHeaders(Arrays.asList("Origin", "X-Requested-With", "Content-Type", "Accept", "authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

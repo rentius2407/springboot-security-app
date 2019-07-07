@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ren.category;
+package com.ren.plan.day.category;
 
 import com.ren.category.option.Option;
 import com.ren.db.SingleResultNull;
@@ -45,9 +45,8 @@ public class CategoryRepository {
         return entityManager.merge(category);
     }
 
-    public List<Option> findOptionsForCategory(Long categoryId) {
-        return entityManager.createQuery(Option.FIND_BY_CATEGORY_ID.QUERY, Option.class)
-                .setParameter(Option.FIND_BY_CATEGORY_ID.PARAM_CATEGORY_ID, categoryId)
+    public List<Option> findOptions() {
+        return entityManager.createQuery(Option.FIND_ALL.QUERY, Option.class)
                 .getResultList();
     }
 
@@ -57,14 +56,24 @@ public class CategoryRepository {
 
         return new SingleResultNull<>(query).get();
     }
+    
+    public List<PlanDayCategory> findByPlanDayWithCategory(long planDayId) {
 
-    public List<Option> findOptionsByCategoryAndGroup(Long categoryId, Long groupId) {
-        TypedQuery<Option> query = entityManager.createQuery(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.QUERY, Option.class)
-                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_CATEGORY_ID, categoryId)
-                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_GROUP_ID, groupId);
-        
-        return query.getResultList();
-        
+        final String PLAN_DAY_ID = "planDay";
+
+        return entityManager.createQuery("select pdc from PlanDayCategory pdc join fetch pdc.category where pdc.planDay.id = :" + PLAN_DAY_ID, PlanDayCategory.class)
+                .setParameter(PLAN_DAY_ID, planDayId)
+                .getResultList();
     }
+
+
+//    public List<Option> findOptionsByCategoryAndGroup(Long categoryId, Long groupId) {
+//        TypedQuery<Option> query = entityManager.createQuery(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.QUERY, Option.class)
+//                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_CATEGORY_ID, categoryId)
+//                .setParameter(Option.FIND_BY_CATEGORY_ID_AND_GROUP_ID.PARAM_GROUP_ID, groupId);
+//        
+//        return query.getResultList();
+//        
+//    }
 
 }

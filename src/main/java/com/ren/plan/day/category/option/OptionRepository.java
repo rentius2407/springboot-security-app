@@ -3,32 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ren.property;
+package com.ren.plan.day.category.option;
 
+import com.ren.plan.day.category.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * @author cp332918
+ */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
-public class PropertyRepository {
+public class OptionRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<Property> getAll() {
+    
+    public List<PlanDayCategoryOption> findByPlanDayCategoryWithOption(long planDayCategoryId) {
 
-        TypedQuery<Property> query = entityManager.createQuery("select p from Property p", Property.class);
-        List<Property> properties = query.getResultList();
-        return properties;
-    }
+        final String PLAN_DAY_CATEGORY_ID = "planDayCategory";
 
-    public Property get(Long id) {
-        return entityManager.find(Property.class, id);
+        return entityManager.createQuery("select pdco from PlanDayCategoryOption pdco join fetch pdco.option where pdco.planDayCategory.id = :" + PLAN_DAY_CATEGORY_ID, PlanDayCategoryOption.class)
+                .setParameter(PLAN_DAY_CATEGORY_ID, planDayCategoryId)
+                .getResultList();
     }
 
 }

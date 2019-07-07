@@ -6,6 +6,7 @@
 package com.ren.user;
 
 import com.ren.db.SingleResultNull;
+import com.ren.plan.day.Plan;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,9 +37,9 @@ public class UserRepository {
         entityManager.persist(user);
         return user;
     }
-    
+
     public List<User> findAll() {
         return entityManager.createQuery(User.FIND_ALL.QUERY, User.class)
                 .getResultList();
-    }    
+    }
 }

@@ -25,26 +25,6 @@
                          defaultValueSequenceNext="authority_seq"
                          tableName="authority"/>                
     </changeSet>    
-    <changeSet author="rentius" id="createSequence-property">
-        <createSequence 
-            incrementBy="1"
-            sequenceName="property_seq"
-            startValue="1"/>
-    </changeSet> 
-    <changeSet author="rentius" id="create table property">
-        <createTable tableName="property">
-            <column name="id" type="bigint">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="name" type="varchar(100)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-        
-        <addDefaultValue columnName="id"
-                         defaultValueSequenceNext="property_seq"
-                         tableName="property"/>                
-    </changeSet>         
     <changeSet author="rentius" id="create table app_role">
         <createSequence 
             incrementBy="1"
@@ -115,15 +95,43 @@
             <column name="role_id" valueComputed="(select id from app_role where name = 'ADMIN')"/>
         </insert>               
     </changeSet> 
-    <changeSet author="rentius" id="create table category_type">
+    <changeSet author="rentius" id="create table plan">
         <createSequence 
             incrementBy="1"
-            sequenceName="category_type_seq"
+            sequenceName="plan_seq"
             startValue="1"/> 
               
-        <createTable tableName="category_type">
+        <createTable tableName="plan">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="blob">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="plan_seq"
+                         tableName="plan"/>   
+    </changeSet>  
+    <changeSet author="rentius" id="create table day">
+        <createSequence 
+            incrementBy="1"
+            sequenceName="day_seq"
+            startValue="1"/> 
+              
+        <createTable tableName="day">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(20)">
+                <constraints nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -131,10 +139,135 @@
         </createTable>
         
         <addDefaultValue columnName="id"
-                         defaultValueSequenceNext="category_type_seq"
-                         tableName="category_type"/> 
+                         defaultValueSequenceNext="day_seq"
+                         tableName="day"/>   
+    </changeSet>  
+    <changeSet id="insert days" author="rentius">
+        <insert tableName="day">
+            <column name="code" value="D1"/>
+            <column name="name" value="Day 1"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D2"/>
+            <column name="name" value="Day 2"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D3"/>
+            <column name="name" value="Day 3"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D4"/>
+            <column name="name" value="Day 4"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D5"/>
+            <column name="name" value="Day 5"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D6"/>
+            <column name="name" value="Day 6"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D7"/>
+            <column name="name" value="Day 7"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D8"/>
+            <column name="name" value="Day 8"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D9"/>
+            <column name="name" value="Day 9"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D10"/>
+            <column name="name" value="Day 10"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D11"/>
+            <column name="name" value="Day 11"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D12"/>
+            <column name="name" value="Day 12"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D13"/>
+            <column name="name" value="Day 13"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D14"/>
+            <column name="name" value="Day 14"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D15"/>
+            <column name="name" value="Day 15"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D16"/>
+            <column name="name" value="Day 16"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D17"/>
+            <column name="name" value="Day 17"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D18"/>
+            <column name="name" value="Day 18"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D19"/>
+            <column name="name" value="Day 19"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D20"/>
+            <column name="name" value="Day 20"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D21"/>
+            <column name="name" value="Day 21"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D22"/>
+            <column name="name" value="Day 22"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D23"/>
+            <column name="name" value="Day 23"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D24"/>
+            <column name="name" value="Day 24"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D25"/>
+            <column name="name" value="Day 25"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D26"/>
+            <column name="name" value="Day 26"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D27"/>
+            <column name="name" value="Day 27"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D28"/>
+            <column name="name" value="Day 28"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D29"/>
+            <column name="name" value="Day 29"/>
+        </insert> 
+        <insert tableName="day">
+            <column name="code" value="D30"/>
+            <column name="name" value="Day 30"/>
+        </insert>         
+        <insert tableName="day">
+            <column name="code" value="D31"/>
+            <column name="name" value="Day 31"/>
+        </insert>            
     </changeSet>
-    
     <changeSet author="rentius" id="create table category">
         <createSequence 
             incrementBy="1"
@@ -145,78 +278,35 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(50)">
+            <column name="code" type="varchar(20)">
                 <constraints nullable="false"/>
             </column>
-            <column name="parent_id" type="bigint">
-                <constraints nullable="true"/>
-            </column>
-            <column name="category_type_id" type="bigint">
-                <constraints nullable="true"/>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
         
         <addDefaultValue columnName="id"
                          defaultValueSequenceNext="category_seq"
                          tableName="category"/>   
-        
-        <addForeignKeyConstraint baseTableName="category"
-                                 baseColumnNames="parent_id"
-                                 constraintName="category_parent_id"
-                                 referencedTableName="category"
-                                 referencedColumnNames="id"/>             
-        <addForeignKeyConstraint baseTableName="category"
-                                 baseColumnNames="category_type_id"
-                                 constraintName="category_category_type_id"
-                                 referencedTableName="category_type"
-                                 referencedColumnNames="id"/>             
     </changeSet>  
-    
-    <changeSet author="rentius" id="insert category nutrition">
-        <insert tableName="category">
-            <column name="name" value="Nutrition"/>
-        </insert>               
-    </changeSet> 
-    
-    <changeSet author="rentius" id="add column view_state">
-        <addColumn tableName="category">
-            <column name="view_state" type="varchar(50)">
-                <constraints nullable="true"/>
-            </column>
-        </addColumn>
-    </changeSet>  
-    
-    <changeSet author="rentius" id="update nutrition view_state">
-        <update tableName="category">
-            <column name="view_state" value="app.nutrition"/>
-            <where>name = 'Nutrition'</where>
-        </update>
-    </changeSet>            
     
     <changeSet author="rentius" id="insert category nutrition sub category items">
         <insert tableName="category">
             <column name="name" value="Breakfast"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+            <column name="code" value="BFAST"/>
         </insert>               
         <insert tableName="category">
             <column name="name" value="Lunch"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+            <column name="code" value="LNCH"/>
         </insert>               
         <insert tableName="category">
             <column name="name" value="Dinner"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
+            <column name="code" value="DNR"/>
         </insert>               
         <insert tableName="category">
             <column name="name" value="Snacks"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Nutrition')"/>
-        </insert>               
-        <insert tableName="category">
-            <column name="name" value="Mid Morning"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Snacks')"/>
-        </insert>               
-        <insert tableName="category">
-            <column name="name" value="Mid Afternoon"/>
-            <column name="parent_id" valueComputed="(select id from category where name = 'Snacks')"/>
+            <column name="code" value="SNCK"/>
         </insert>               
     </changeSet>     
     
@@ -233,23 +323,26 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="content" type="text">
+            <column name="title" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="category_id" type="bigint">
+            <column name="overview" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="ingredient" type="text">
+                <constraints nullable="false"/>
+            </column>            
+            <column name="nutrition" type="text">
+                <constraints nullable="false"/>
+            </column>            
+            <column name="direction" type="text">
+                <constraints nullable="false"/>
+            </column>            
         </createTable>
         
         <addDefaultValue columnName="id"
                          defaultValueSequenceNext="option_seq"
-                         tableName="option"/>   
-        
-        <addForeignKeyConstraint baseTableName="option"
-                                 baseColumnNames="category_id"
-                                 constraintName="option_category_id"
-                                 referencedTableName="category"
-                                 referencedColumnNames="id"/>             
+                         tableName="option"/>  
     </changeSet>   
     <changeSet author="rentius" id="insert app_role USER">
         <insert tableName="app_role">
@@ -317,7 +410,64 @@
             <column name="app_group_id" valueComputed="(select id from app_group where name = 'PREMIUM_MEMBER')"/>
         </insert>               
     </changeSet>    
-    <changeSet author="rentius" id="create table app_group_option">
+    <changeSet author="rentius" id="insert app_user_group group PREMIUM_MEMBER user user@jqfitness.co.uk">
+        <insert tableName="app_user_group">
+            <column name="app_user_id" valueComputed="(select id from app_user where email = 'user@jqfitness.co.uk')"/>
+            <column name="app_group_id" valueComputed="(select id from app_group where name = 'PREMIUM_MEMBER')"/>
+        </insert>               
+    </changeSet> 
+<!--    <changeSet author="rentius" id="create table plan_day_cat_option">
+        
+        <createSequence 
+            incrementBy="1"
+            sequenceName="pdco_seq"
+            startValue="1"/> 
+                
+        <createTable tableName="plan_day_cat_option">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="plan_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="option_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="plan_id"
+                                 constraintName="plan_day_cat_option_plan_id"
+                                 referencedTableName="plan"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="day_id"
+                                 constraintName="plan_day_cat_option_day_id"
+                                 referencedTableName="day"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="category_id"
+                                 constraintName="plan_day_cat_option_category_id"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="option_id"
+                                 constraintName="plan_day_cat_option_option_id"
+                                 referencedTableName="option"
+                                 referencedColumnNames="id"/>   
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="pdco_seq"
+                         tableName="plan_day_cat_option"/>                   
+        
+    </changeSet>         -->
+<!--    <changeSet author="rentius" id="create table app_group_option">
         <createTable tableName="app_group_option">
             <column name="option_id" type="bigint">
                 <constraints nullable="false"/>
@@ -338,5 +488,146 @@
                                  constraintName="app_group_option_app_group_id"
                                  referencedTableName="app_group"
                                  referencedColumnNames="id"/>          
-    </changeSet>          
+    </changeSet>          -->
+    <changeSet author="rentius" id="create table plan_day">
+        
+        <createSequence 
+            incrementBy="1"
+            sequenceName="pan_day_seq"
+            startValue="1"/> 
+                
+        <createTable tableName="plan_day">
+            <column name="id" type="bigint">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="plan_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="plan_day"
+                                 baseColumnNames="plan_id"
+                                 constraintName="plan_day_plan_id"
+                                 referencedTableName="plan"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day"
+                                 baseColumnNames="day_id"
+                                 constraintName="plan_day_day_id"
+                                 referencedTableName="day"
+                                 referencedColumnNames="id"/>          
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="pan_day_seq"
+                         tableName="plan_day"/>                   
+        
+    </changeSet>  
+    <changeSet author="rentius" id="create table plan_day_cat"> 
+        
+        <createSequence 
+            incrementBy="1"
+            sequenceName="plan_day_cat_seq"
+            startValue="1"/> 
+                
+        <createTable tableName="plan_day_cat">
+            <column name="id" type="bigint">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="plan_day_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="plan_day_cat"
+                                 baseColumnNames="plan_day_id"
+                                 constraintName="plan_day_cat_plan_day_id"
+                                 referencedTableName="plan_day"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day_cat"
+                                 baseColumnNames="category_id"
+                                 constraintName="plan_day_cat_category_id"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>          
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="plan_day_cat_seq"
+                         tableName="plan_day_cat"/>                   
+        
+    </changeSet>  
+    
+    <changeSet author="rentius" id="create table plan_day_cat_option">
+        
+        <createSequence 
+            incrementBy="1"
+            sequenceName="pdco_seq"
+            startValue="1"/> 
+                
+        <createTable tableName="plan_day_cat_option">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="plan_day_cat_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="option_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="plan_day_cat_id"
+                                 constraintName="pdco_plan_day_cat_id"
+                                 referencedTableName="plan_day_cat"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="plan_day_cat_option"
+                                 baseColumnNames="option_id"
+                                 constraintName="pdco_option_id"
+                                 referencedTableName="option"
+                                 referencedColumnNames="id"/>   
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="pdco_seq"
+                         tableName="plan_day_cat_option"/>                   
+        
+    </changeSet>    
+    <changeSet author="rentius" id="create table app_user_plan">
+        
+        <createSequence 
+            incrementBy="1"
+            sequenceName="app_user_plan_seq"
+            startValue="1"/> 
+                
+        <createTable tableName="app_user_plan">
+            <column name="id" type="bigint">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="app_user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>            
+            <column name="plan_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <addForeignKeyConstraint baseTableName="app_user_plan"
+                                 baseColumnNames="plan_id"
+                                 constraintName="app_user_plan_plan_id"
+                                 referencedTableName="plan"
+                                 referencedColumnNames="id"/>          
+        <addForeignKeyConstraint baseTableName="app_user_plan"
+                                 baseColumnNames="app_user_id"
+                                 constraintName="app_user_plan_app_user_id"
+                                 referencedTableName="app_user"
+                                 referencedColumnNames="id"/>          
+        
+        <addDefaultValue columnName="id"
+                         defaultValueSequenceNext="app_user_plan_seq"
+                         tableName="app_user_plan"/>                   
+        
+    </changeSet>                  
 </databaseChangeLog>

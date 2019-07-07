@@ -5,6 +5,7 @@
  */
 package com.ren.user;
 
+import com.ren.plan.day.Plan;
 import com.ren.security.authentication.AuthenticationCredentials;
 import com.ren.security.authentication.AuthenticationException;
 import com.ren.user.create.NewUser;
@@ -12,6 +13,7 @@ import com.ren.user.group.Group;
 import com.ren.user.group.GroupService;
 import com.ren.user.role.Role;
 import com.ren.user.role.RoleService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

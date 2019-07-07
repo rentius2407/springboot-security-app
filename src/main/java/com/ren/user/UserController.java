@@ -7,9 +7,7 @@ package com.ren.user;
 
 import com.ren.api.MappingApi;
 import com.ren.user.create.NewUser;
-import com.ren.user.role.Role;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,12 +43,12 @@ public class UserController {
     public ResponseEntity<List<UserDetail>> findAll() {
 
         List<UserDetail> userDetails = new ArrayList<>();
-        
+
         List<User> users = userService.findAll();
         users.stream().forEach((user) -> {
             userDetails.add(UserDetail.from(user));
         });
-        
+
         return new ResponseEntity<>(userDetails, HttpStatus.OK);
     }
 

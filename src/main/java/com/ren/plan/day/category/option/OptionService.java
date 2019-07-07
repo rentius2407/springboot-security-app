@@ -3,27 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ren.property;
+package com.ren.plan.day.category.option;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * @author cp332918
+ */
 @Service
-public class PropertyService {
+public class OptionService {
 
     @Autowired
-    PropertyRepository propertyRepository;
+    private OptionRepository optionRepository;
 
     @Transactional(readOnly = true)
-    public List<Property> getAll() {
-        return propertyRepository.getAll();
+    public List<PlanDayCategoryOption> findByPlanDayCategoryWithOption(long planDayCategoryId) {
+        return optionRepository.findByPlanDayCategoryWithOption(planDayCategoryId);
     }
-
-    @Transactional(readOnly = true)
-    public Property get(Long id) {
-        return propertyRepository.get(id);
-    }
-
+    
 }

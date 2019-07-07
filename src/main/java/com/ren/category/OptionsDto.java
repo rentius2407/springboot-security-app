@@ -5,6 +5,7 @@
  */
 package com.ren.category;
 
+import com.ren.plan.day.category.Category;
 import com.ren.category.option.Option;
 import java.util.Set;
 

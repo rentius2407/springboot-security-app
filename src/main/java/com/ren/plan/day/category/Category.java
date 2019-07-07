@@ -3,22 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ren.category;
+package com.ren.plan.day.category;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ren.category.option.Option;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -36,14 +27,11 @@ public class Category implements Serializable {
     private Long id;
     @Column(name = "name")
     private String name;
-    @JoinColumn(name = "parent_id")
-    @ManyToOne
-    private Category parentCategory;
-    @Column(name = "view_state")
-    private String viewState;
-    @JsonIgnore
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private Set<Option> options = new HashSet<>();
+    @Column(name = "code")
+    private String code;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+//    private Set<Option> options = new HashSet<>();
 
     public Category() {
     }
@@ -68,47 +56,39 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Category getParentCategory() {
-        return parentCategory;
+    public String getCode() {
+        return code;
     }
 
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getViewState() {
-        return viewState;
-    }
+//    public Set<Option> getOptions() {
+//        return options;
+//    }
+//
+//    public void setOptions(Set<Option> options) {
+//        this.options = options;
+//    }
+//
+//    public void add(Option option) {
+//        option.setCategory(this);
+//        getOptions().add(option);
+//    }
+//
+//    public void update(Option option) {
+//        getOption(option.getId()).updateWith(option);
+//    }
 
-    public void setViewState(String viewState) {
-        this.viewState = viewState;
-    }
-
-    public Set<Option> getOptions() {
-        return options;
-    }
-
-    public void setOptions(Set<Option> options) {
-        this.options = options;
-    }
-
-    public void add(Option option) {
-        option.setCategory(this);
-        getOptions().add(option);
-    }
-
-    public void update(Option option) {
-       getOption(option.getId()).updateWith(option);
-    }
-
-    public Option getOption(Long optionId) {
-        for (Option option : getOptions()) {
-            if (optionId.equals(option.getId())) {
-                return option;
-            }
-        }
-        throw new IllegalArgumentException("Option with id not found: " + optionId);
-    }
+//    public Option getOption(Long optionId) {
+//        for (Option option : getOptions()) {
+//            if (optionId.equals(option.getId())) {
+//                return option;
+//            }
+//        }
+//        throw new IllegalArgumentException("Option with id not found: " + optionId);
+//    }
 
     public static class FIND_ALL_ROOT {
 
